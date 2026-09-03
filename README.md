@@ -1,825 +1,898 @@
-# NexusBank — AI-Powered Digital Banking & Fraud Detection Platform
+<div align="center">
 
-<p align="center">
-  <strong>Modern Digital Banking • AI/ML Fraud Detection • Behavioural Risk Intelligence</strong>
-</p>
+# 🏦 NexusBank
 
-<p align="center">
-  A full-stack banking platform built with MERN, FastAPI, and scikit-learn, combining secure digital banking workflows with explainable multi-signal fraud detection.
-</p>
+### Smart Banking. Intelligent Security.
 
----
+**AI-Powered Digital Banking Platform with Explainable Fraud Detection, Behavioural Intelligence & Machine Learning**
 
-## Overview
+<br/>
 
-NexusBank is a full-stack digital banking portfolio project designed to demonstrate how modern banking applications can combine everyday financial services with intelligent transaction-risk analysis.
+![NexusBank](https://img.shields.io/badge/NexusBank-AI%20Powered%20Banking-00E5C3?style=for-the-badge&labelColor=07111F)
+![MERN](https://img.shields.io/badge/MERN-Stack-00D8FF?style=for-the-badge&labelColor=07111F)
+![FastAPI](https://img.shields.io/badge/FastAPI-ML%20Service-00C7B7?style=for-the-badge&labelColor=07111F)
+![Machine Learning](https://img.shields.io/badge/ML-Fraud%20Detection-8B5CF6?style=for-the-badge&labelColor=07111F)
 
-The platform brings together:
+<br/><br/>
 
-- Digital banking and account management
-- Secure authentication and OTP verification
-- Beneficiary management
-- Money transfers with verification
-- Transaction history and statements
-- Fixed Deposits
-- PPF
-- Rewards
-- Alerts and notifications
-- Nexus Prime premium membership
-- Behavioural transaction analysis
-- Rule-based fraud detection
-- Machine-learning fraud probability prediction
-- Explainable fraud-risk visualization
-- Admin fraud monitoring and investigation
+<a href="https://github.com/shashwatjha-dev/NexusBank-MERN-AI-MLFraud-Detection">
+<img src="https://img.shields.io/badge/⭐_VIEW_PROJECT-GitHub-111827?style=for-the-badge&logo=github" alt="GitHub"/>
+</a>
 
-The project is structured as three independently runnable services:
-
-    NexusBank
-    │
-    ├── Frontend
-    │     React + Vite
-    │
-    ├── Backend
-    │     Node.js + Express + MongoDB
-    │
-    └── ML Service
-          Python + FastAPI + scikit-learn
+</div>
 
 ---
 
-# Why NexusBank?
+<div align="center">
 
-Traditional banking applications often expose transaction history and account information without showing users why a transaction may be considered risky.
+## ⚡ NEXT-GENERATION DIGITAL BANKING
 
-NexusBank focuses on the complete experience:
+### Banking experience meets intelligent security.
 
-    Banking Transaction
-            │
-            ▼
-    Transaction Validation
-            │
-            ▼
-    Rule Analysis
-            │
-            ▼
-    Behavioural Analysis
-            │
-            ▼
-    ML Fraud Probability
-            │
-            ▼
-    Risk Scoring
-            │
-            ▼
-    Explainable Decision
-            │
-            ▼
-    Customer / Admin Experience
+NexusBank is a full-stack digital banking portfolio project combining a modern banking interface with a multi-layer fraud detection engine built using **rules, behavioural intelligence and machine learning**.
 
-Instead of relying on a single fraud signal, NexusBank combines multiple independent signals into a unified risk-analysis pipeline.
+</div>
 
 ---
 
-# Core Features
+# ✨ Product Showcase
 
-## Digital Banking
+<div align="center">
 
-- Customer registration and login
-- OTP-based verification
-- Account overview
-- Multiple customer accounts
-- Account balances
-- Beneficiary management
-- Transaction history
-- Money transfers
-- Transfer verification
-- Idempotent transaction handling
-- Fixed Deposits
-- PPF management
-- Rewards
-- Alerts
-- Notifications
-- Statements
-- Statement sharing
-- PDF receipts
-- Nexus Prime premium membership
+<img src="docs/screenshots/01-login.png" width="96%" alt="NexusBank Login"/>
+
+<br/><br/>
+
+<img src="docs/screenshots/02-dashboard.png" width="96%" alt="NexusBank Dashboard"/>
+
+</div>
 
 ---
 
-# AI & Fraud Detection
+# 🧠 What Is NexusBank?
 
-The fraud-detection system is one of the core technical components of NexusBank.
+NexusBank is designed as a complete digital banking experience rather than a simple CRUD banking application.
 
-It combines three major signals:
+The platform combines:
 
-    Rule-based Risk
-          +
-    Behavioural Risk
-          +
-    ML Fraud Probability
-          |
-          ▼
-    Final Risk Score
+- 🏦 Digital banking
+- 🔐 Secure authentication
+- 🔑 OTP verification
+- 💳 Account management
+- 💸 Money transfers
+- 👥 Beneficiary management
+- 📜 Transaction history
+- 💰 Fixed Deposits
+- 🐷 PPF
+- 🎁 Rewards
+- 🔔 Alerts
+- 📢 Notifications
+- 📄 Statements
+- 🧾 PDF receipts
+- 💎 Nexus Prime
+- 🛡️ Rule-based fraud detection
+- 🧠 Behavioural analysis
+- 🤖 Machine-learning fraud prediction
+- 🔎 Explainable fraud intelligence
+- 👨‍💼 Admin monitoring
 
-The backend uses:
+The complete system is divided into three major services:
 
-    Rule Score       → 55%
-    Behavioural     → 30%
-    ML Probability  → 15%
-
-The final score is mapped into:
-
-    0 – 29   → LOW
-    30 – 59  → MEDIUM
-    60 – 100 → HIGH
-
-This architecture allows the ML model to enhance fraud detection without becoming the only source of truth.
-
----
-
-# Fraud Detection Pipeline
-
-A transaction can pass through the following analysis stages:
-
-### 1. Transaction Validation
-
-The backend validates:
-
-- Sender account
-- Beneficiary
-- Amount
-- Account state
-- Transfer limits
-- Idempotency
-- Authentication requirements
-
-### 2. Rule Engine
-
-The rule engine evaluates deterministic transaction-risk conditions.
-
-Examples include:
-
-- Large transaction amount
-- New beneficiary
-- New device
-- Unusual transaction timing
-- High transaction velocity
-- Suspicious transaction history
-- Other configured risk signals
-
-### 3. Behavioural Analyzer
-
-The behavioural layer compares the transaction with the user's historical activity.
-
-It considers signals such as:
-
-- Historical transaction amount
-- Amount deviation
-- Transaction frequency
-- Device familiarity
-- Beneficiary familiarity
-- Previous suspicious activity
-- Behavioural deviation
-
-### 4. ML Prediction
-
-The Node.js backend sends engineered features to the Python ML service.
-
-The ML service returns:
-
-    fraud_probability
-
-The backend never fabricates an ML probability when the ML service is unavailable.
-
-### 5. Risk Scoring
-
-The individual signals are combined into a final risk score.
-
-Conceptually:
-
-    Final Risk =
-        Rule Score × 0.55
-      + Behavioural Score × 0.30
-      + ML Score × 0.15
-
-### 6. Decision Engine
-
-The final risk level is used by the transaction decision engine to determine the appropriate transaction state and verification requirements.
+| Service | Technology | Responsibility |
+|---|---|---|
+| 🎨 Frontend | React + Vite | Banking UI and customer experience |
+| ⚙️ Backend | Node.js + Express + MongoDB | Banking logic, APIs and fraud orchestration |
+| 🤖 ML Service | Python + FastAPI + scikit-learn | Fraud probability prediction |
 
 ---
 
-# Explainable Fraud Detection
+# 🌌 System Overview
 
-NexusBank is designed so that a fraud decision is not just a number.
-
-The frontend can present:
-
-- Fraud risk score
-- Risk level
-- Triggered rules
-- Behavioural signals
-- ML contribution
-- Risk explanation
-
-This makes the fraud system easier to understand during demonstrations and investigations.
-
----
-
-# Machine Learning Service
-
-The ML service is an independent Python application located in:
-
-    ml-service/
-
-Technology:
-
-- Python
-- FastAPI
-- Pydantic
-- pandas
-- NumPy
-- scikit-learn
-- joblib
-
-The current model uses:
-
-    GradientBoostingClassifier
-
-with a preprocessing pipeline based on:
-
-    ColumnTransformer
-    StandardScaler
-    passthrough features
+```text
+                         🏦 NEXUSBANK
+                              │
+                              ▼
+                  ┌─────────────────────┐
+                  │    React + Vite     │
+                  │      Frontend       │
+                  └──────────┬──────────┘
+                             │
+                             │ REST API
+                             ▼
+                  ┌─────────────────────┐
+                  │   Node.js + Express │
+                  │       Backend       │
+                  └───────┬───────┬─────┘
+                          │       │
+                          │       │ POST /predict
+                          │       │
+                          ▼       ▼
+                  ┌────────────┐ ┌─────────────────┐
+                  │  MongoDB   │ │ Python + FastAPI│
+                  │  Database  │ │    ML Service   │
+                  └────────────┘ └────────┬────────┘
+                                          │
+                                          ▼
+                                 ┌─────────────────┐
+                                 │  scikit-learn   │
+                                 │   Fraud Model   │
+                                 └─────────────────┘
+```
 
 ---
 
-# ML Features
+# 🛡️ AI Fraud Detection Engine
 
-The prediction model uses nine transaction features:
+The main technical highlight of NexusBank is its multi-layer fraud detection system.
 
-    amount
-    amount_to_average_ratio
-    beneficiary_age_days
-    is_new_beneficiary
-    is_new_device
-    hour_of_day
-    transactions_last_5_minutes
-    previous_suspicious_count
-    behavioural_deviation
+Instead of depending entirely on a machine-learning model, NexusBank evaluates transactions using three different intelligence layers.
 
-The model uses:
+<div align="center">
 
-    0 = legitimate
-    1 = suspicious / fraud
+### 🛡️ RULE ENGINE
 
-The default prediction threshold is:
+## 55%
 
-    0.5
+Deterministic transaction-risk analysis
+
+<br/>
+
+### 🧠 BEHAVIOURAL ENGINE
+
+## 30%
+
+User behaviour and historical deviation
+
+<br/>
+
+### 🤖 ML ENGINE
+
+## 15%
+
+Machine-learning fraud probability
+
+</div>
 
 ---
 
-# Current ML Model
+# 🎯 Risk Scoring
 
-The repository contains versioned model artifacts.
+The final fraud score is calculated using the configured weighted signals:
 
-Latest model:
+```text
+Rule Score          × 0.55
+Behaviour Score     × 0.30
+ML Score            × 0.15
+                    ──────
+              Final Risk Score
+```
 
-    model-v1-2026-09-01
+Risk bands:
 
-Training configuration:
+| Score | Risk Level |
+|---:|---|
+| 🟢 0 – 29 | LOW |
+| 🟡 30 – 59 | MEDIUM |
+| 🔴 60 – 100 | HIGH |
 
-    Dataset size: 50,000 transactions
-    Fraud rate: 8%
-    Random seed: 42
-    Test split: 20%
-    Prediction threshold: 0.5
+This architecture allows deterministic security rules and behavioural signals to remain important even when the ML service is unavailable.
+
+---
+
+# 🔎 Explainable Fraud Intelligence
+
+NexusBank does not simply return:
+
+```text
+Fraud Score: 71
+```
+
+Instead, the application can expose the individual signals contributing to the security decision.
+
+<div align="center">
+
+<img src="docs/screenshots/06-fraud-intelligence.png" width="96%" alt="NexusBank Fraud Intelligence"/>
+
+</div>
+
+The fraud intelligence experience can show:
+
+- 🛡️ Rule Score
+- 🧠 Behaviour Score
+- 🤖 ML Risk
+- 📊 Overall Risk
+- ⚡ Triggered Rules
+- 📈 Behavioural Signals
+- 🤖 ML Service Availability
+- 🎯 Fraud Probability
+- 🔐 Verification Requirement
+
+The goal is simple:
+
+> **Explain why a transaction was flagged instead of showing only a number.**
+
+---
+
+# 💸 Transfer Risk Analysis
+
+Every transfer can pass through NexusBank's fraud analysis workflow before the transaction is completed.
+
+<div align="center">
+
+<img src="docs/screenshots/04-transfer-fraud-analysis.png" width="96%" alt="NexusBank Transfer Fraud Analysis"/>
+
+</div>
+
+Potential signals include:
+
+- 💰 Transaction amount
+- 👥 Beneficiary age
+- 🆕 New beneficiary
+- 📱 New device
+- 🕐 Unusual transaction time
+- ⚡ Transaction velocity
+- 📊 Historical transaction patterns
+- 🚨 Previous suspicious activity
+- 🧠 Behavioural deviation
+- 🤖 ML fraud probability
+
+The final risk assessment is surfaced directly within the transfer experience.
+
+---
+
+# 🚨 Fraud Events
+
+NexusBank includes a dedicated fraud monitoring experience.
+
+<div align="center">
+
+<img src="docs/screenshots/05-fraud-events.png" width="96%" alt="NexusBank Fraud Events"/>
+
+</div>
+
+The fraud monitoring interface provides visibility into:
+
+- Total fraud events
+- High-risk events
+- Medium-risk events
+- Low-risk events
+- Verification-required events
+- Amount at risk
+- Transaction search
+- Risk filtering
+- Status filtering
+- Event selection
+- Fraud intelligence
+
+---
+
+# 🧠 How the Fraud Pipeline Works
+
+```text
+                    TRANSFER REQUEST
+                           │
+                           ▼
+                  Transaction Validation
+                           │
+            ┌──────────────┼──────────────┐
+            │              │              │
+            ▼              ▼              ▼
+       Account        Beneficiary      Amount
+       Validation      Validation      Validation
+            │              │              │
+            └──────────────┼──────────────┘
+                           ▼
+                    Fraud Orchestrator
+                           │
+             ┌─────────────┼─────────────┐
+             ▼             ▼             ▼
+        Rule Engine   Behavioural     ML Service
+                         Engine
+             │             │             │
+             └─────────────┼─────────────┘
+                           ▼
+                     Risk Scoring
+                           │
+                           ▼
+                  Explainable Decision
+                           │
+                 ┌─────────┴─────────┐
+                 ▼                   ▼
+          Verification Required   Continue
+```
+
+---
+
+# 🤖 Machine Learning Service
+
+NexusBank contains an independent Python/FastAPI ML service.
+
+The backend communicates with it through HTTP.
+
+```text
+Node.js Backend
+       │
+       │ POST /predict
+       ▼
+┌──────────────────────┐
+│    FastAPI Service   │
+│      /predict        │
+└──────────┬───────────┘
+           │
+           ▼
+   Pydantic Validation
+           │
+           ▼
+   Feature Engineering
+           │
+           ▼
+   scikit-learn Pipeline
+           │
+           ▼
+GradientBoostingClassifier
+           │
+           ▼
+   Fraud Probability
+           │
+           ▼
+     Backend Fraud
+       Orchestrator
+```
+
+---
+
+# 🧩 ML Features
+
+The fraud model uses transaction-related features including:
+
+| Feature | Description |
+|---|---|
+| `amount` | Transaction amount |
+| `amount_to_average_ratio` | Amount compared with historical average |
+| `beneficiary_age_days` | Beneficiary age |
+| `is_new_beneficiary` | Whether beneficiary is new |
+| `is_new_device` | Whether device is new |
+| `hour_of_day` | Transaction hour |
+| `transactions_last_5_minutes` | Recent transaction velocity |
+| `previous_suspicious_count` | Previous suspicious activity |
+| `behavioural_deviation` | Deviation from expected behaviour |
+
+Prediction:
+
+```text
+0 = legitimate
+1 = suspicious / fraud
+```
+
+Default probability threshold:
+
+```text
+0.5
+```
+
+---
+
+# 📈 ML Model
+
+Current model architecture:
+
+```text
+GradientBoostingClassifier
+```
+
+The project uses a deterministic synthetic training setup.
+
+Current model metadata includes:
+
+```text
+Model Version : model-v1-2026-09-01
+Dataset Size  : 50,000 synthetic transactions
+Fraud Rate    : approximately 8%
+Random Seed   : 42
+Test Split    : 20%
+Threshold     : 0.5
+```
 
 Recorded held-out evaluation:
 
-    ROC-AUC:    0.901685
-    PR-AUC:     0.837250
-    F1:         0.878924
-    Precision:  0.964330
-    Recall:     0.807415
+| Metric | Result |
+|---|---:|
+| ROC-AUC | 0.901685 |
+| PR-AUC | 0.837250 |
+| F1 | 0.878924 |
+| Precision | 0.964330 |
+| Recall | 0.807415 |
 
-These metrics are based on the project's synthetic dataset and should not be interpreted as production banking fraud-detection performance.
-
----
-
-# ML Service API
-
-The Python service exposes:
-
-    GET  /health
-    GET  /
-    POST /predict
-
-Swagger documentation is available during development at:
-
-    http://localhost:8000/docs
-
-Example prediction request:
-
-    {
-      "amount": 2500.0,
-      "amount_to_average_ratio": 1.05,
-      "beneficiary_age_days": 210.0,
-      "is_new_beneficiary": 0,
-      "is_new_device": 0,
-      "hour_of_day": 13,
-      "transactions_last_5_minutes": 0,
-      "previous_suspicious_count": 0,
-      "behavioural_deviation": 5.0
-    }
-
-The response contains the model-generated fraud probability and prediction state together with request/transaction correlation information.
+> These metrics are based on synthetic portfolio data and should not be interpreted as production banking fraud-detection performance.
 
 ---
 
-# Backend ↔ ML Architecture
+# 🛡️ Safe ML Fallback
 
-The Node.js backend communicates with the Python service over HTTP.
-
-    Node.js Backend
-          │
-          │ POST /predict
-          ▼
-    FastAPI ML Service
-          │
-          ▼
-    Feature Validation
-          │
-          ▼
-    Feature Engineering
-          │
-          ▼
-    Scikit-learn Pipeline
-          │
-          ▼
-    fraud_probability
-          │
-          ▼
-    Node.js Fraud Engine
-
-The ML service is intentionally isolated from MongoDB and does not directly authorize banking transactions.
-
----
-
-# Safe ML Fallback
-
-ML availability is treated as a dependency rather than a reason to invent a result.
+The backend treats the ML service as an external dependency.
 
 If the ML service is unavailable:
 
-    No fabricated probability
-    No fake ML score
-    No silent replacement with a random value
+```text
+❌ No fabricated fraud probability
+❌ No random ML score
+❌ No fake prediction
+```
 
-The Node.js fraud engine can continue using its rule-based and behavioural signals according to its configured safety logic.
+The backend can continue using its configured rule-based and behavioural fraud signals while explicitly representing ML availability.
 
-This keeps the banking workflow more resilient while maintaining transparency around ML availability.
-
----
-
-# Security-Oriented Design
-
-The project includes several security-focused mechanisms.
-
-### Authentication
-
-- JWT-based authentication
-- OTP verification
-- Password hashing
-- Role-based access control
-- Protected routes
-
-### Transaction Security
-
-- Transfer verification
-- Idempotency handling
-- Account validation
-- Beneficiary validation
-- Transaction state management
-- Fraud analysis before final transaction processing
-
-### Application Security
-
-- Helmet
-- CORS configuration
-- Request validation
-- Centralized error handling
-- Request correlation IDs
-- Audit logging
-- Session handling
-- Device tracking
-
-### Data Handling
-
-- Monetary values handled using paise-based integer representation where applicable
-- Controlled environment configuration
-- No raw OTP returned by the OTP service
-- Environment secrets excluded from Git
+This provides a safer failure mode than inventing a prediction.
 
 ---
 
-# Banking Features
+# 🏦 Banking Dashboard
 
-## Accounts
+<div align="center">
 
-Customers can view:
+<img src="docs/screenshots/02-dashboard.png" width="96%" alt="NexusBank Dashboard"/>
+
+</div>
+
+The dashboard provides an overview of:
 
 - Total balance
 - Active accounts
-- Account details
-- Account-specific activity
+- Fixed Deposits
+- PPF
+- My Accounts
+- Quick Actions
+- Banking activity
+- Customer profile
+- Security state
 
 ---
 
-## Transfers
+# 💳 My Accounts
 
-The transfer workflow supports:
+<div align="center">
 
-- Beneficiary selection
-- Amount validation
-- Transaction validation
-- Fraud analysis
-- Risk scoring
-- Verification
-- Idempotency
-- Transaction processing
-- Receipt generation
+<img src="docs/screenshots/03-accounts.png" width="96%" alt="NexusBank Accounts"/>
 
----
+</div>
 
-## Beneficiaries
+The Accounts experience includes:
 
-Customers can:
-
-- Add beneficiaries
-- View beneficiaries
-- Use beneficiaries during transfers
-- Receive additional fraud scrutiny for newly added beneficiaries
+- Total balance
+- Active account count
+- Account cards
+- Primary account
+- Investment overview
+- Fixed Deposit information
+- PPF information
+- Reward points
+- Account actions
 
 ---
 
-## Transactions
+# 💰 Fixed Deposits
+
+<div align="center">
+
+<img src="docs/screenshots/07-fixed-deposits.png" width="96%" alt="NexusBank Fixed Deposits"/>
+
+</div>
+
+The Fixed Deposit experience provides:
+
+- Total portfolio value
+- Total invested
+- Interest earned
+- Average interest rate
+- Active deposits
+- Deposit amount
+- Tenure
+- Maturity value
+- Maturity date
+- New FD creation
+
+---
+
+# 🐷 Public Provident Fund
+
+<div align="center">
+
+<img src="docs/screenshots/08-ppf.png" width="96%" alt="NexusBank PPF"/>
+
+</div>
+
+The PPF experience demonstrates:
+
+- PPF balance
+- Total contributed
+- Interest earned
+- Interest rate
+- Account status
+- Contributions
+- Long-term savings presentation
+
+> Portfolio simulation — not a real Government of India PPF service.
+
+---
+
+# 🎁 Rewards
+
+<div align="center">
+
+<img src="docs/screenshots/09-rewards.png" width="96%" alt="NexusBank Rewards"/>
+
+</div>
+
+The Rewards experience includes:
+
+- Available reward points
+- Membership tier
+- Tier progress
+- Points redemption
+- Cash conversion
+- Reward history
+- Customer reward information
+
+---
+
+# 🔐 Authentication
+
+<div align="center">
+
+<img src="docs/screenshots/01-login.png" width="96%" alt="NexusBank Login"/>
+
+</div>
+
+The authentication experience includes:
+
+- Secure login
+- Password authentication
+- OTP verification
+- Demo access
+- Protected routes
+- Role-based access
+- Session handling
+
+The product positioning starts from the login experience itself:
+
+```text
+Smart banking.
+Intelligent security.
+```
+
+---
+
+# 💎 Nexus Prime
+
+Nexus Prime is the premium banking experience integrated into NexusBank.
+
+It demonstrates:
+
+- Premium subscription
+- Premium payment
+- Priority banking
+- Premium customer state
+- Premium benefits
+- Premium UI
+- Subscription management
+
+Current portfolio demonstration price:
+
+```text
+₹499 / year
+```
+
+---
+
+# 📜 Statements & Receipts
+
+NexusBank includes document-oriented banking functionality:
+
+- Transaction statements
+- Statement filtering
+- Statement sharing
+- PDF statements
+- Transaction receipts
+- PDF receipt generation
+
+---
+
+# 🔔 Notifications & Alerts
 
 The platform provides:
 
-- Transaction history
-- Transaction details
-- Fraud-analysis information
-- Risk indicators
-- Transaction status
-- Receipt access
-
----
-
-# Fixed Deposits
-
-NexusBank includes a Fixed Deposit workflow for demonstrating banking-product functionality.
-
-Customers can manage:
-
-- Deposit creation
-- Deposit information
-- Maturity information
-- Interest-related data
-- Deposit status
-
----
-
-# PPF
-
-The PPF module demonstrates long-term savings functionality.
-
-It supports:
-
-- PPF account management
-- Contributions
-- Contribution history
-- PPF-related calculations
-- Account information
-
----
-
-# Rewards
-
-The rewards system supports:
-
-- Reward balances
-- Reward transactions
-- Reward history
-- Customer reward activity
-
----
-
-# Notifications & Alerts
-
-NexusBank provides:
-
-- Customer notifications
-- Security alerts
-- Transaction alerts
-- Fraud-related alerts
+- Transaction notifications
+- Security notifications
+- Fraud alerts
+- Account alerts
 - Notification history
-
-The backend includes dedicated notification and alert services.
-
----
-
-# Statements & Receipts
-
-Customers can work with:
-
-- Transaction statements
-- Statement filters
-- Statement insights
-- Statement sharing
-- PDF receipts
-
-The backend contains dedicated services for PDF generation, statements, and statement sharing.
+- Customer alert management
 
 ---
 
-# Nexus Prime
+# 👨‍💼 Admin & Operations
 
-Nexus Prime is the platform's premium membership experience.
+The backend and frontend also contain an administrative experience.
 
-The frontend includes a premium upgrade flow and premium-state UI.
+Admin functionality includes:
 
-The backend provides:
-
-- Premium subscriptions
-- Premium payments
-- Premium service logic
-
-The current portfolio implementation uses an annual premium price of:
-
-    ₹499 / year
-
-Premium functionality is implemented as a demonstration of subscription-based banking services.
-
----
-
-# Admin & Fraud Monitoring
-
-NexusBank also includes an administrative experience.
-
-Admin capabilities include:
-
-- Dashboard overview
 - User management
 - User details
 - Transaction monitoring
 - Fraud monitoring
 - Fraud investigation
+- Security events
 - Audit logs
-- Security-related monitoring
-
-The fraud-monitoring interface provides visibility into transaction risk and fraud-analysis information.
+- Operational visibility
 
 ---
 
-# Frontend
+# 🔒 Security Architecture
 
-The frontend is built with:
+NexusBank includes several security-focused mechanisms.
 
-- React
-- Vite
-- React Router
-- CSS
-- Context API
-- Reusable components
+### Authentication
 
-Major areas include:
+- JWT authentication
+- OTP verification
+- Password hashing
+- Protected routes
+- Role-based authorization
+- Session management
 
-    src/
+### Transaction Security
+
+- Account validation
+- Beneficiary validation
+- Amount validation
+- Transfer verification
+- Idempotency
+- Fraud analysis
+- Controlled transaction states
+
+### Application Security
+
+- Helmet
+- CORS
+- Request validation
+- Centralized error handling
+- Request correlation
+- Audit logging
+- Device tracking
+
+### ML Safety
+
+- No fabricated probabilities
+- Explicit ML availability
+- Deterministic training
+- Model metadata
+- Independent ML service
+
+---
+
+# 🧱 Backend Architecture
+
+```text
+HTTP Request
+     │
+     ▼
+Express Routes
+     │
+     ▼
+Middleware
+     │
+     ├── Authentication
+     ├── Authorization
+     ├── Validation
+     ├── Request Context
+     └── Error Handling
+     │
+     ▼
+Controllers
+     │
+     ▼
+Services
+     │
+     ├── Banking Services
+     ├── Fraud Services
+     ├── Notification Services
+     ├── Statement Services
+     ├── Premium Services
+     └── Transaction Services
+     │
+     ▼
+Mongoose Models
+     │
+     ▼
+MongoDB
+```
+
+---
+
+# 🧠 Fraud Service Architecture
+
+The backend fraud subsystem is separated into dedicated components including:
+
+```text
+fraud/
+├── behaviouralAnalyzer.js
+├── decisionEngine.js
+├── demoScenarios.js
+├── featureBuilder.js
+├── fraudOrchestrator.js
+├── mlClient.js
+├── riskScorer.js
+└── ruleEngine.js
+```
+
+This separation makes the fraud system easier to:
+
+- Test
+- Maintain
+- Extend
+- Debug
+- Explain
+
+---
+
+# 🌐 API Surface
+
+The backend provides route groups for:
+
+```text
+/api/auth
+/api/accounts
+/api/beneficiaries
+/api/transfers
+/api/transactions
+/api/fd
+/api/rewards
+/api/alerts
+/api/fraud
+/api/admin
+/api/demo
+/api/statements
+/api/notifications
+/api/receipts
+/api/ppf
+```
+
+The individual service READMEs contain deeper API and implementation details.
+
+---
+
+# 🎨 Frontend Architecture
+
+The frontend is built with React and Vite.
+
+Major application areas include:
+
+```text
+Frontend/
+└── src/
     ├── components/
-    │   ├── accounts/
-    │   ├── auth/
-    │   ├── common/
-    │   ├── dashboard/
-    │   ├── fraud/
-    │   ├── layout/
-    │   ├── notifications/
-    │   ├── statements/
-    │   └── transfer/
-    │
     ├── context/
     ├── hooks/
     ├── pages/
     │   ├── admin/
     │   └── customer/
-    │
     ├── router/
     ├── services/
     ├── styles/
     └── utils/
+```
 
-The UI also includes responsive layouts, reusable design tokens, theme support, accessibility styles, loading states, error states, notifications, and fraud-risk visualization components.
-
----
-
-# Frontend Customer Areas
-
-The customer application includes routes/pages for:
-
-- Dashboard
-- Accounts
-- Transactions
-- Transfers
-- Transfer verification
-- Beneficiaries
-- Cards
-- Fixed Deposits
-- PPF
-- Rewards
-- Alerts
-- Fraud logs
-- Statements
-- Security
-- Settings
-- Demo
+The interface is organized around reusable banking, fraud, authentication, layout and transaction components.
 
 ---
 
-# Frontend Admin Areas
+# 🧭 Customer Application
 
-The admin application includes:
+Customer-facing functionality includes:
 
-- Admin dashboard
-- Overview
-- Users
-- User details
-- Transactions
-- Fraud monitoring
-- Fraud investigation
-- Audit logs
-
-Role-protected routes prevent normal customers from accessing admin-only areas.
-
----
-
-# Backend
-
-The backend is built with:
-
-- Node.js
-- Express
-- MongoDB
-- Mongoose
-- JWT
-- Joi
-- Nodemailer
-- Helmet
-- CORS
-- PDFKit
-- UUID
-
-The backend is responsible for:
-
-- Authentication
-- Authorization
-- Banking operations
-- Account management
-- Beneficiaries
-- Transfers
-- Transactions
-- Fraud orchestration
-- Risk scoring
-- Notifications
-- Statements
-- Receipts
-- Rewards
-- FD
-- PPF
-- Premium membership
-- Admin operations
+```text
+Dashboard
+My Accounts
+Transfer
+Transfer Verification
+Beneficiaries
+Transactions
+Cards
+Fixed Deposits
+PPF
+Rewards
+Alerts
+Fraud Events
+Security
+Settings
+Statements
+Demo
+Nexus Prime
+```
 
 ---
 
-# Backend Architecture
+# 👨‍💼 Admin Application
 
-    HTTP Request
-          │
-          ▼
-    Express Routes
-          │
-          ▼
-    Middleware
-          │
-          ├── Authentication
-          ├── Authorization
-          ├── Validation
-          ├── Request Context
-          └── Error Handling
-          │
-          ▼
-    Controllers
-          │
-          ▼
-    Services
-          │
-          ├── Banking Services
-          ├── Fraud Services
-          ├── Notification Services
-          ├── Statement Services
-          └── Premium Services
-          │
-          ▼
-    Mongoose Models
-          │
-          ▼
-    MongoDB
+Admin-facing functionality includes:
+
+```text
+Admin Dashboard
+Overview
+Users
+User Details
+Transactions
+Fraud Monitoring
+Fraud Investigation
+Audit Logs
+```
 
 ---
 
-# Backend Fraud Services
+# 🌌 UI Design System
 
-The fraud subsystem contains dedicated services for:
+NexusBank follows a futuristic digital banking visual language.
 
-    behaviouralAnalyzer.js
-    decisionEngine.js
-    demoScenarios.js
-    featureBuilder.js
-    fraudOrchestrator.js
-    mlClient.js
-    riskScorer.js
-    ruleEngine.js
+The interface combines:
 
-This separation keeps fraud analysis modular and easier to test.
+```text
+🌌 Dark Navy Surfaces
+        +
+⚡ Neon Cyan / Green Accents
+        +
+🧠 Purple Intelligence Signals
+        +
+🚨 Risk-State Colors
+        +
+✨ Soft Glows
+        +
+💎 Premium Cards
+        +
+📊 Data-Rich Panels
+```
 
----
+Risk states are intentionally visual:
 
-# API Surface
+- 🟢 Low
+- 🟡 Medium
+- 🔴 High
+- 🔐 Verification Required
 
-The backend exposes route groups covering:
-
-    /api/auth
-    /api/accounts
-    /api/beneficiaries
-    /api/transfers
-    /api/transactions
-    /api/fd
-    /api/rewards
-    /api/alerts
-    /api/fraud
-    /api/admin
-    /api/demo
-    /api/statements
-    /api/notifications
-    /api/receipts
-    /api/ppf
-
-Exact endpoint behaviour and configuration are documented inside the respective service README files.
+The visual system makes security information understandable at a glance.
 
 ---
 
-# Project Structure
+# ⚙️ Technology Stack
 
-    NexusBank-MERN-AI-MLFraud-Detection/
-    │
-    ├── Backend/
-    │   ├── config/
-    │   ├── controllers/
-    │   ├── middleware/
-    │   ├── models/
-    │   ├── routes/
-    │   ├── seed/
-    │   ├── services/
-    │   ├── tests/
-    │   ├── utils/
-    │   ├── validators/
-    │   ├── app.js
-    │   ├── server.js
-    │   ├── package.json
-    │   └── README.md
-    │
-    ├── Frontend/
-    │   ├── public/
-    │   ├── src/
-    │   ├── index.html
-    │   ├── package.json
-    │   └── README.md
-    │
-    ├── ml-service/
-    │   ├── app/
-    │   ├── models/
-    │   ├── tests/
-    │   ├── training/
-    │   ├── main.py
-    │   ├── requirements.txt
-    │   └── README.md
-    │
-    ├── .gitignore
-    └── README.md
+<div align="center">
+
+<img src="https://skillicons.dev/icons?i=react,vite,nodejs,express,mongodb,python,fastapi,sklearn,javascript,git,github" width="700" alt="Technology Stack"/>
+
+</div>
+
+| Layer | Technology |
+|---|---|
+| Frontend | React + Vite |
+| Routing | React Router |
+| Backend | Node.js + Express |
+| Database | MongoDB + Mongoose |
+| Authentication | JWT + OTP |
+| Validation | Joi + Pydantic |
+| Fraud Engine | Node.js Services |
+| ML API | FastAPI |
+| Machine Learning | scikit-learn |
+| Data Processing | pandas + NumPy |
+| Model Persistence | joblib |
+| Email | Nodemailer |
+| PDF Generation | PDFKit |
+| Backend Testing | Jest |
+| ML Testing | pytest |
+| Version Control | Git + GitHub |
 
 ---
 
-# Local Setup
+# 🚀 Installation
 
-## 1. Clone
+## 1. Clone the Repository
 
     git clone https://github.com/shashwatjha-dev/NexusBank-MERN-AI-MLFraud-Detection.git
 
@@ -827,43 +900,51 @@ Exact endpoint behaviour and configuration are documented inside the respective 
 
 ---
 
-# 2. Backend Setup
+## 2. Backend Setup
 
     cd Backend
-
     npm install
 
 Create:
 
-    .env
+    Backend/.env
 
 using:
 
-    .env.example
+    Backend/.env.example
 
-Configure your local MongoDB connection, JWT secret, CORS settings, ML service URL, and email/OTP settings as required.
+Configure the required environment variables including:
 
-Start development server:
+- MongoDB connection
+- Database name
+- JWT secret
+- JWT expiration
+- CORS origins
+- ML service URL
+- SMTP configuration
+- OTP configuration
+- Other local settings
+
+Start the backend:
 
     npm run dev
 
 ---
 
-# 3. Frontend Setup
+## 3. Frontend Setup
 
 Open another terminal:
 
     cd Frontend
-
     npm install
 
 Create:
 
-    .env
+    Frontend/.env
 
 using:
 
-    .env.example
+    Frontend/.env.example
 
 Start the frontend:
 
@@ -871,90 +952,93 @@ Start the frontend:
 
 ---
 
-# 4. ML Service Setup
+## 4. ML Service Setup
 
 Open another terminal:
 
     cd ml-service
 
-Create and activate a virtual environment.
-
-Windows:
+Create a Python virtual environment:
 
     python -m venv .venv
 
-    .\.venv\Scripts\Activate.ps1
+### Windows
+
+    .venv\Scripts\activate
 
 Install dependencies:
 
     pip install -r requirements.txt
 
-If a model artifact is not available, train one:
+Train the model when required:
 
     python -m training.train
 
-Start the API:
+Start the ML API:
 
     uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
----
+Swagger documentation:
 
-# Environment Flow
-
-The three services communicate approximately as follows:
-
-    Frontend
-       │
-       │ HTTP API
-       ▼
-    Backend :5000
-       │
-       │ POST /predict
-       ▼
-    ML Service :8000
-       │
-       ▼
-    MongoDB
-
-The actual ports can be changed through environment configuration.
+    http://localhost:8000/docs
 
 ---
 
-# Seed Data
+# 🔗 Service Communication
 
-The backend contains a seed system for creating demonstration data.
+```text
+┌───────────────────┐
+│   React Frontend  │
+└─────────┬─────────┘
+          │
+          │ REST API
+          ▼
+┌───────────────────┐
+│ Node.js / Express │
+│      Backend      │
+└─────────┬─────────┘
+          │
+          ├──────────────► MongoDB
+          │
+          │ POST /predict
+          ▼
+┌───────────────────┐
+│  FastAPI ML API   │
+└─────────┬─────────┘
+          │
+          ▼
+┌───────────────────┐
+│  scikit-learn ML  │
+│       Model       │
+└───────────────────┘
+```
 
-From:
+---
 
-    Backend/
+# 🌱 Seed Data
 
-Run:
+The backend includes a demonstration seed system.
+
+From the Backend directory:
 
     npm run seed
-
-The seed process supports normal migration behaviour and a fresh reset option.
 
 For a fresh demonstration database:
 
     npm run seed -- --fresh
 
-Only use the fresh option when you intentionally want to recreate the seed state.
+The fresh option should only be used when intentionally recreating the demonstration database.
 
 ---
 
-# Testing
+# 🧪 Testing
 
 ## Backend
 
-From:
-
-    Backend/
-
-Run:
-
+    cd Backend
     npm test
 
-Backend tests cover important fraud and transaction logic including:
+Important backend test areas include:
 
 - Behavioural analysis
 - Decision engine
@@ -963,169 +1047,382 @@ Backend tests cover important fraud and transaction logic including:
 - Rule engine
 - Transfer idempotency
 
----
-
 ## ML Service
 
-From:
-
-    ml-service/
-
-Run:
-
+    cd ml-service
     pytest -q
 
-The ML test suite covers:
+Important ML test areas include:
 
 - Dataset generation
 - Model behaviour
 - Prediction endpoint
-- Validation
+- Request validation
 - Model availability
-- Prediction probability handling
+- Probability handling
 - Request correlation
 
 ---
 
-# Development Philosophy
+# 📁 Repository Structure
 
-NexusBank is intentionally structured as a modular full-stack system rather than a single monolithic application.
-
-The main design principles are:
-
-### Separation of Concerns
-
-Frontend, backend, and ML responsibilities are separated.
-
-### Explainability
-
-Fraud analysis should expose useful signals instead of only displaying a final number.
-
-### Defensive Design
-
-Validation, idempotency, authentication, and controlled error handling are used throughout the application.
-
-### ML as a Supporting Signal
-
-The ML model contributes to risk analysis but does not independently control the complete banking workflow.
-
-### Reproducibility
-
-The ML training pipeline uses deterministic seeds and stores model metadata.
-
-### Testability
-
-Fraud logic and important transaction behaviour are separated into testable services.
-
----
-
-# Technology Stack
-
-| Layer | Technologies |
-|---|---|
-| Frontend | React, Vite, React Router, CSS |
-| Backend | Node.js, Express |
-| Database | MongoDB, Mongoose |
-| Authentication | JWT, OTP |
-| Validation | Joi, Pydantic |
-| Fraud Engine | Node.js services |
-| ML API | FastAPI, Uvicorn |
-| Machine Learning | scikit-learn |
-| Data Processing | pandas, NumPy |
-| Model Persistence | joblib |
-| Email | Nodemailer |
-| Documents | PDFKit |
-| Testing | Jest, pytest |
-| Version Control | Git, GitHub |
-
----
-
-# What This Project Demonstrates
-
-This project demonstrates practical implementation of:
-
-- Full-stack MERN development
-- REST API architecture
-- MongoDB data modelling
-- Authentication and authorization
-- OTP workflows
-- Transaction processing
-- Idempotency
-- Financial amount handling
-- Fraud rule engines
-- Behavioural analytics
-- Machine-learning inference
-- FastAPI microservices
-- Model versioning
-- Explainable risk analysis
-- Admin monitoring
-- Audit logging
-- Responsive React UI
-- Modular service architecture
-- Automated testing
+```text
+NexusBank-MERN-AI-MLFraud-Detection/
+│
+├── Backend/
+│   ├── config/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── seed/
+│   ├── services/
+│   │   └── fraud/
+│   ├── tests/
+│   ├── utils/
+│   ├── validators/
+│   └── README.md
+│
+├── Frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   │   ├── admin/
+│   │   │   └── customer/
+│   │   ├── router/
+│   │   ├── services/
+│   │   ├── styles/
+│   │   └── utils/
+│   └── README.md
+│
+├── ml-service/
+│   ├── app/
+│   ├── models/
+│   ├── tests/
+│   ├── training/
+│   ├── main.py
+│   ├── requirements.txt
+│   └── README.md
+│
+├── docs/
+│   └── screenshots/
+│       ├── 01-login.png
+│       ├── 02-dashboard.png
+│       ├── 03-accounts.png
+│       ├── 04-transfer-fraud-analysis.png
+│       ├── 05-fraud-events.png
+│       ├── 06-fraud-intelligence.png
+│       ├── 07-fixed-deposits.png
+│       ├── 08-ppf.png
+│       └── 09-rewards.png
+│
+├── .gitignore
+└── README.md
+```
 
 ---
 
-# Portfolio Notes
+# 📸 Full Product Showcase
 
-NexusBank is intended as a portfolio and educational project demonstrating the integration of:
+## 🔐 Login
 
-    Full-Stack Development
-            +
-    Banking Workflows
-            +
-    Fraud Detection
-            +
-    Behavioural Analytics
-            +
-    Machine Learning
-            +
-    Microservice Architecture
-
-It is not intended to represent a production banking infrastructure.
+<img src="docs/screenshots/01-login.png" width="100%" alt="NexusBank Login"/>
 
 ---
 
-# Important Disclaimer
+## 📊 Dashboard
 
-NexusBank is a portfolio/educational project.
+<img src="docs/screenshots/02-dashboard.png" width="100%" alt="NexusBank Dashboard"/>
 
-The ML fraud-detection service uses synthetic data and is not trained on real customer banking information.
+---
 
-The project should not be used for:
+## 💳 My Accounts
 
-- Real financial decisions
+<img src="docs/screenshots/03-accounts.png" width="100%" alt="NexusBank Accounts"/>
+
+---
+
+## 💸 Transfer + Fraud Analysis
+
+<img src="docs/screenshots/04-transfer-fraud-analysis.png" width="100%" alt="NexusBank Transfer Fraud Analysis"/>
+
+---
+
+## 🚨 Fraud Events
+
+<img src="docs/screenshots/05-fraud-events.png" width="100%" alt="NexusBank Fraud Events"/>
+
+---
+
+## 🧠 Fraud Intelligence
+
+<img src="docs/screenshots/06-fraud-intelligence.png" width="100%" alt="NexusBank Fraud Intelligence"/>
+
+---
+
+## 💰 Fixed Deposits
+
+<img src="docs/screenshots/07-fixed-deposits.png" width="100%" alt="NexusBank Fixed Deposits"/>
+
+---
+
+## 🐷 PPF
+
+<img src="docs/screenshots/08-ppf.png" width="100%" alt="NexusBank PPF"/>
+
+---
+
+## 🎁 Rewards
+
+<img src="docs/screenshots/09-rewards.png" width="100%" alt="NexusBank Rewards"/>
+
+---
+
+# 🎯 What This Project Demonstrates
+
+```text
+FULL-STACK DEVELOPMENT
+        │
+        ├── React
+        ├── Node.js
+        ├── Express
+        └── MongoDB
+                │
+                ▼
+BANKING SYSTEM DESIGN
+        │
+        ├── Accounts
+        ├── Transfers
+        ├── Beneficiaries
+        ├── FD
+        ├── PPF
+        └── Rewards
+                │
+                ▼
+SECURITY ENGINEERING
+        │
+        ├── JWT
+        ├── OTP
+        ├── Validation
+        ├── Idempotency
+        └── Audit Logging
+                │
+                ▼
+FRAUD INTELLIGENCE
+        │
+        ├── Rule Engine
+        ├── Behavioural Analysis
+        ├── ML Prediction
+        └── Explainability
+                │
+                ▼
+AI / ML INTEGRATION
+        │
+        ├── Python
+        ├── FastAPI
+        ├── scikit-learn
+        └── Model Versioning
+```
+
+---
+
+# 🧠 Engineering Principles
+
+## Separation of Concerns
+
+Frontend, backend, database, fraud services and ML inference are separated into distinct responsibilities.
+
+## Explainability
+
+Fraud analysis exposes meaningful signals instead of only displaying a final risk score.
+
+## Defensive Design
+
+Validation, authentication, idempotency and controlled error handling are integrated into the transaction workflow.
+
+## ML as a Supporting Signal
+
+Machine learning contributes to the overall risk assessment without becoming the only decision-maker.
+
+## Reproducibility
+
+The ML pipeline uses deterministic training configuration and versioned model metadata.
+
+## Testability
+
+Important fraud and transaction logic is separated into independently testable services.
+
+---
+
+# 🔬 Why This Architecture?
+
+Traditional banking demo:
+
+```text
+Login
+  ↓
+Account
+  ↓
+Transfer
+  ↓
+Success
+```
+
+NexusBank:
+
+```text
+Login
+  ↓
+Authentication
+  ↓
+Account Validation
+  ↓
+Beneficiary Validation
+  ↓
+Transaction Analysis
+  ↓
+Rule Engine
+  ↓
+Behavioural Engine
+  ↓
+ML Prediction
+  ↓
+Risk Scoring
+  ↓
+Explainable Decision
+  ↓
+Verification if required
+  ↓
+Transaction Processing
+```
+
+The objective is to demonstrate how a banking workflow can integrate security intelligence directly into the transaction lifecycle.
+
+---
+
+# 🌟 Portfolio Highlights
+
+### 🏦 Full-Stack Banking
+
+React + Node.js + Express + MongoDB
+
+### 🤖 AI / ML
+
+Python + FastAPI + scikit-learn
+
+### 🛡️ Fraud Detection
+
+Rule engine + behavioural analysis + machine learning
+
+### 🔐 Security
+
+JWT + OTP + validation + idempotency + audit logging
+
+### 💰 Financial Products
+
+Accounts + transfers + FD + PPF + rewards
+
+### 👨‍💼 Operations
+
+Admin dashboard + fraud monitoring + investigation
+
+### 🎨 UI / UX
+
+Futuristic dark banking interface with responsive data-rich components
+
+---
+
+# 📚 Service Documentation
+
+Detailed documentation is available inside each service:
+
+    Backend/README.md
+    Frontend/README.md
+    ml-service/README.md
+
+Each service README contains its own setup, configuration, architecture, testing and troubleshooting information.
+
+---
+
+# ⚠️ Portfolio Disclaimer
+
+NexusBank is a portfolio and educational project.
+
+The fraud-detection model uses synthetic transaction data and is not trained on real customer banking information.
+
+This project is not intended for:
+
 - Real banking authorization
+- Real financial decisions
 - Production fraud detection
 - Credit decisions
 - Customer risk decisions
 
-Production financial systems require significantly stronger controls around security, privacy, compliance, model governance, monitoring, data quality, reliability, and regulatory requirements.
+A real production financial platform would require substantially stronger controls around:
+
+- Security
+- Privacy
+- Compliance
+- Data governance
+- Model governance
+- Monitoring
+- Reliability
+- Regulatory requirements
+- Operational processes
 
 ---
 
-# Repository
+# 👨‍💻 Author
 
-GitHub:
-
-https://github.com/shashwatjha-dev/NexusBank-MERN-AI-MLFraud-Detection
-
----
-
-# Author
+<div align="center">
 
 ## Shashwat Jha
 
-Full-Stack Developer focused on:
+### Full-Stack Developer • AI/ML Integration • Fraud Detection
 
-- MERN Stack
-- AI/ML Integration
-- Fraud Detection Systems
-- Backend Engineering
-- Modern React Applications
+Building modern applications across:
+
+**MERN • Backend Engineering • AI/ML • Fraud Detection • Secure Systems**
+
+<br/>
+
+<a href="https://github.com/shashwatjha-dev">
+<img src="https://img.shields.io/badge/GitHub-shashwatjha--dev-111827?style=for-the-badge&logo=github" alt="GitHub"/>
+</a>
+
+<br/><br/>
+
+<a href="https://www.linkedin.com/in/shashwatjha2026/">
+<img src="https://img.shields.io/badge/LinkedIn-Shashwat%20Jha-0A66C2?style=for-the-badge&logo=linkedin" alt="LinkedIn"/>
+</a>
+
+</div>
 
 ---
 
-## NexusBank
+<div align="center">
 
-**A modern digital banking experience powered by full-stack engineering, behavioural intelligence, and machine-learning based fraud analysis.**
+# 🏦 NEXUSBANK
+
+### Smart Banking. Intelligent Security.
+
+<br/>
+
+<img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=700&size=18&duration=2500&pause=800&color=00E5C3&center=true&vCenter=true&width=700&lines=RULES+%2B+BEHAVIOUR+%2B+MACHINE+LEARNING;EXPLAINABLE+FRAUD+INTELLIGENCE;SECURE+DIGITAL+BANKING;BUILT+WITH+MERN+%2B+FASTAPI" alt="NexusBank"/>
+
+<br/><br/>
+
+<a href="https://github.com/shashwatjha-dev/NexusBank-MERN-AI-MLFraud-Detection">
+
+<img src="https://img.shields.io/badge/⭐_EXPLORE_NEXUSBANK-GitHub-00E5C3?style=for-the-badge&labelColor=07111F" alt="Explore NexusBank"/>
+
+</a>
+
+<br/><br/>
+
+<strong>Built as a portfolio demonstration of modern banking, security engineering and AI/ML integration.</strong>
+
+</div>
