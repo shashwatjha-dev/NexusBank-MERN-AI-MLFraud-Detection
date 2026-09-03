@@ -1,0 +1,30 @@
+.quick {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+.quick__item {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  padding: 18px 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  transition: transform var(--dur-fast) var(--ease-out),
+              box-shadow var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out);
+}
+.quick__item:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-text);
+  box-shadow: var(--shadow-sm);
+}
+.quick__icon {
+  width: 40px; height: 40px; border-radius: 12px;
+  display: grid; place-items: center;
+  background: color-mix(in oklab, var(--color-accent) 12%, transparent);
+  color: var(--color-accent);
+}
+.quick__label { font-size: 13px; font-weight: 500; }
+
+@media (max-width: 640px) { .quick { grid-template-columns: repeat(3, 1fr); } }

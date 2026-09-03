@@ -1,0 +1,23 @@
+# NexusBank ML service — pinned dependencies for reproducible builds.
+#
+# Rules:
+#   - Only scikit-learn based ML (no XGBoost).
+#   - Pinned to stable minors so training artifacts remain byte-reproducible.
+#   - Every entry is either a runtime dep, a training dep, or a test dep — no
+#     "convenience" packages.
+
+# --- Web / API ---
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+pydantic==2.9.2
+pydantic-settings==2.5.2
+
+# --- ML / data ---
+scikit-learn==1.5.2
+numpy==2.1.1
+pandas==2.2.3
+joblib==1.4.2
+
+# --- Tests ---
+pytest==8.3.3
+httpx==0.27.2

@@ -1,0 +1,20 @@
+.risk-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--risk-color) 40%, transparent);
+  background: color-mix(in oklab, var(--risk-color) 12%, var(--color-surface));
+  color: var(--risk-color);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.risk-chip__dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--risk-color);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--risk-color) 20%, transparent);
+}
+.risk-chip--sm { padding: 2px 8px; font-size: 10px; }

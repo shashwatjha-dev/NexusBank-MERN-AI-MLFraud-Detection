@@ -1,0 +1,2468 @@
+/* =========================================================
+   NEXUSBANK — PREMIUM FUTURISTIC SIDEBAR
+   ========================================================= */
+
+.sidebar {
+  --sidebar-bg: #07111f;
+  --sidebar-border: rgba(94, 143, 202, 0.18);
+  --sidebar-text: #eef5ff;
+  --sidebar-muted: #91a5c1;
+  --sidebar-subtle: #607593;
+
+  --sidebar-blue: #258cff;
+  --sidebar-cyan: #00e6c3;
+  --sidebar-purple: #8b5cf6;
+
+  position: sticky;
+  top: 0;
+  z-index: 30;
+
+  display: flex;
+  flex-direction: column;
+
+  width: 250px;
+  min-width: 250px;
+  height: 100vh;
+
+  padding: 18px 14px 12px;
+
+  gap: 14px;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 10% 5%,
+      rgba(35, 140, 255, 0.12),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 100% 58%,
+      rgba(139, 92, 246, 0.08),
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(9, 21, 38, 0.98),
+      rgba(5, 13, 26, 0.99)
+    );
+
+  border-right: 1px solid var(--sidebar-border);
+
+  box-shadow:
+    8px 0 35px rgba(0, 0, 0, 0.18),
+    inset -1px 0 0 rgba(70, 130, 220, 0.05);
+
+  isolation: isolate;
+}
+
+
+/* =========================================================
+   AMBIENT VFX
+   ========================================================= */
+
+.sidebar::before {
+  content: "";
+
+  position: absolute;
+  z-index: -1;
+
+  top: -12%;
+  left: -65%;
+
+  width: 220%;
+  height: 28%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(35, 140, 255, 0.04),
+      rgba(0, 230, 195, 0.09),
+      rgba(139, 92, 246, 0.05),
+      transparent
+    );
+
+  filter: blur(25px);
+
+  transform: rotate(-8deg);
+
+  animation:
+    sidebarLightSweep 9s ease-in-out infinite;
+
+  pointer-events: none;
+}
+
+
+.sidebar::after {
+  content: "";
+
+  position: absolute;
+  z-index: -1;
+
+  right: -85px;
+  bottom: 13%;
+
+  width: 190px;
+  height: 190px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(35, 140, 255, 0.10),
+      rgba(139, 92, 246, 0.055) 36%,
+      transparent 70%
+    );
+
+  filter: blur(10px);
+
+  animation:
+    sidebarOrb 7s ease-in-out infinite alternate;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   BRAND — ANIMATED NEXUSBANK IDENTITY
+   ========================================================= */
+
+.sidebar__brand {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  min-height: 46px;
+
+  padding: 3px 7px;
+
+  color: var(--sidebar-text);
+
+  border-radius: 13px;
+
+  overflow: visible;
+
+  transition:
+    transform 260ms ease,
+    filter 260ms ease;
+}
+
+
+/* Soft animated aura behind the brand */
+
+.sidebar__brand::before {
+  content: "";
+
+  position: absolute;
+
+  left: -14px;
+  top: -12px;
+
+  width: 205px;
+  height: 68px;
+
+  border-radius: 20px;
+
+  background:
+    radial-gradient(
+      ellipse at 18% 50%,
+      rgba(35, 140, 255, 0.15),
+      transparent 45%
+    ),
+    radial-gradient(
+      ellipse at 72% 50%,
+      rgba(0, 230, 195, 0.08),
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 95% 40%,
+      rgba(139, 92, 246, 0.07),
+      transparent 42%
+    );
+
+  filter: blur(9px);
+
+  opacity: 0.65;
+
+  animation:
+    brandAura 5s ease-in-out infinite alternate;
+
+  pointer-events: none;
+}
+
+
+/* Animated line underneath NexusBank */
+
+.sidebar__brand::after {
+  content: "";
+
+  position: absolute;
+
+  left: 2px;
+  right: 2px;
+  bottom: -9px;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(35, 140, 255, 0.18) 18%,
+      rgba(0, 230, 195, 0.75) 50%,
+      rgba(139, 92, 246, 0.25) 80%,
+      transparent 100%
+    );
+
+  background-size: 220% 100%;
+
+  animation:
+    brandLineFlow 5s ease-in-out infinite;
+
+  box-shadow:
+    0 0 8px
+    rgba(0, 230, 195, 0.12);
+
+  pointer-events: none;
+}
+
+
+.sidebar__brand > * {
+  position: relative;
+  z-index: 2;
+}
+
+
+.sidebar__brand:hover {
+  transform: translateX(2px);
+
+  filter:
+    drop-shadow(
+      0 0 10px
+      rgba(35, 140, 255, 0.12)
+    );
+}
+
+
+.sidebar__brand strong {
+  display: block;
+
+  color: #f4f8ff;
+
+  font-size: 15px;
+  font-weight: 750;
+
+  letter-spacing: -0.015em;
+
+  text-shadow:
+    0 0 18px
+    rgba(35, 140, 255, 0.08);
+
+  transition:
+    color 220ms ease,
+    text-shadow 220ms ease;
+}
+
+
+.sidebar__brand:hover strong {
+  color: #ffffff;
+
+  text-shadow:
+    0 0 16px
+    rgba(35, 140, 255, 0.24);
+}
+
+
+.sidebar__brand .eyebrow {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #6e8bb5;
+
+  font-size: 9px;
+  line-height: 1.2;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.14em !important;
+
+  transition:
+    color 220ms ease,
+    text-shadow 220ms ease;
+}
+
+
+.sidebar__brand:hover .eyebrow {
+  color: #79a9d8;
+
+  text-shadow:
+    0 0 9px
+    rgba(35, 140, 255, 0.20);
+}
+
+
+/* =========================================================
+   LOGO — ANIMATED VFX CORE
+   ========================================================= */
+
+.sidebar__logo {
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+
+  border-radius: 11px;
+
+  color: #10213a;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff,
+      #dce9f8
+    );
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.52);
+
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 800;
+
+  line-height: 1;
+
+  overflow: hidden;
+
+  isolation: isolate;
+
+  box-shadow:
+    0 0 0 1px
+      rgba(35, 140, 255, 0.10),
+    0 5px 18px
+      rgba(0, 0, 0, 0.24),
+    0 0 18px
+      rgba(35, 140, 255, 0.08);
+
+  transform: translateZ(0);
+
+  transition:
+    transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 280ms ease,
+    border-color 280ms ease;
+}
+
+
+/* Moving white/cyan light */
+
+.sidebar__logo::before {
+  content: "";
+
+  position: absolute;
+
+  inset: -65%;
+
+  background:
+    linear-gradient(
+      115deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.88) 46%,
+      rgba(0, 230, 195, 0.24) 52%,
+      transparent 68%
+    );
+
+  transform:
+    translateX(-125%)
+    rotate(12deg);
+
+  animation:
+    logoShine 4.5s ease-in-out infinite;
+
+  pointer-events: none;
+
+  z-index: 1;
+}
+
+
+/* Rotating blue/cyan/purple halo */
+
+.sidebar__logo::after {
+  content: "";
+
+  position: absolute;
+
+  inset: -4px;
+
+  border-radius: 14px;
+
+  background:
+    conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      rgba(35, 140, 255, 0.42) 75deg,
+      rgba(0, 230, 195, 0.65) 150deg,
+      rgba(139, 92, 246, 0.42) 225deg,
+      transparent 305deg
+    );
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+
+  -webkit-mask-composite: xor;
+
+  mask-composite: exclude;
+
+  opacity: 0.72;
+
+  animation:
+    logoHaloSpin 5s linear infinite;
+
+  pointer-events: none;
+
+  z-index: 2;
+}
+
+
+.sidebar__brand:hover .sidebar__logo {
+  transform:
+    translateY(-2px)
+    rotate(-2deg)
+    scale(1.045);
+
+  border-color:
+    rgba(104, 190, 255, 0.68);
+
+  box-shadow:
+    0 0 0 1px
+      rgba(35, 140, 255, 0.30),
+    0 0 18px
+      rgba(35, 140, 255, 0.24),
+    0 0 34px
+      rgba(0, 230, 195, 0.10),
+    0 8px 22px
+      rgba(0, 0, 0, 0.30);
+}
+
+
+/* =========================================================
+   NAV
+   ========================================================= */
+
+.sidebar__nav {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+
+  min-height: 0;
+  flex: 1;
+
+  padding: 8px 2px 5px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    rgba(67, 112, 174, 0.48)
+    transparent;
+}
+
+
+.sidebar__nav::-webkit-scrollbar {
+  width: 4px;
+}
+
+
+.sidebar__nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+.sidebar__nav::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(35, 140, 255, 0.58),
+      rgba(139, 92, 246, 0.48)
+    );
+}
+
+
+/* =========================================================
+   NAV LINKS
+   ========================================================= */
+
+.sidebar__link {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  min-height: 42px;
+
+  padding: 9px 11px;
+
+  border-radius: 11px;
+
+  color: var(--sidebar-muted);
+
+  font-size: 14px;
+  font-weight: 500;
+
+  text-decoration: none;
+
+  border: 1px solid transparent;
+
+  overflow: hidden;
+
+  transition:
+    color 180ms ease,
+    background 220ms ease,
+    border-color 220ms ease,
+    transform 220ms ease,
+    box-shadow 220ms ease;
+}
+
+
+.sidebar__link::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+
+  left: -110%;
+
+  width: 65%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.045),
+      transparent
+    );
+
+  transform: skewX(-18deg);
+
+  transition: left 500ms ease;
+
+  pointer-events: none;
+}
+
+
+.sidebar__link::after {
+  content: "";
+
+  position: absolute;
+
+  left: 12px;
+  right: 12px;
+  bottom: 1px;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(35, 140, 255, 0.24),
+      transparent
+    );
+
+  opacity: 0;
+
+  transition: opacity 220ms ease;
+
+  pointer-events: none;
+}
+
+
+.sidebar__link svg {
+  position: relative;
+  z-index: 1;
+
+  flex: 0 0 auto;
+
+  width: 18px;
+  height: 18px;
+
+  transition:
+    transform 220ms ease,
+    filter 220ms ease,
+    color 180ms ease;
+}
+
+
+.sidebar__link span {
+  position: relative;
+  z-index: 1;
+
+  white-space: nowrap;
+
+  transition: transform 220ms ease;
+}
+
+
+.sidebar__link:hover {
+  color: #edf5ff;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(35, 140, 255, 0.095),
+      rgba(35, 140, 255, 0.035),
+      transparent
+    );
+
+  border-color:
+    rgba(71, 135, 214, 0.14);
+
+  transform: translateX(3px);
+}
+
+
+.sidebar__link:hover::before {
+  left: 145%;
+}
+
+
+.sidebar__link:hover::after {
+  opacity: 1;
+}
+
+
+.sidebar__link:hover svg {
+  color: #59b5ff;
+
+  transform: scale(1.08);
+
+  filter:
+    drop-shadow(
+      0 0 7px
+      rgba(35, 140, 255, 0.5)
+    );
+}
+
+
+.sidebar__link:hover span {
+  transform: translateX(2px);
+}
+
+
+/* =========================================================
+   ACTIVE
+   ========================================================= */
+
+.sidebar__link.is-active {
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      105deg,
+      rgba(35, 140, 255, 0.22),
+      rgba(40, 107, 210, 0.13) 44%,
+      rgba(139, 92, 246, 0.08)
+    );
+
+  border-color:
+    rgba(63, 145, 255, 0.27);
+
+  box-shadow:
+    inset 0 0 25px rgba(35, 140, 255, 0.055),
+    0 5px 18px rgba(0, 0, 0, 0.13);
+
+  transform: translateX(2px);
+}
+
+
+.sidebar__link.is-active svg {
+  color: #58b6ff;
+
+  filter:
+    drop-shadow(
+      0 0 8px
+      rgba(35, 140, 255, 0.65)
+    );
+}
+
+
+.sidebar__link.is-active::before {
+  content: "";
+
+  position: absolute;
+
+  top: 5px;
+  bottom: 5px;
+  left: 0;
+
+  width: 3px;
+
+  border-radius: 0 6px 6px 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      #2f9dff,
+      #00e6c3
+    );
+
+  box-shadow:
+    0 0 7px rgba(35, 157, 255, 0.85),
+    0 0 18px rgba(0, 230, 195, 0.32);
+
+  animation:
+    activeRailPulse 2.2s ease-in-out infinite;
+}
+
+
+.sidebar__link.is-active::after {
+  opacity: 1;
+}
+
+
+/* =========================================================
+   NEXUS PRIME
+   ========================================================= */
+
+.sidebar__premium {
+  position: relative;
+
+  display: block;
+
+  width: 100%;
+
+  flex: 0 0 auto;
+
+  margin: 0 1px 1px;
+
+  min-height: 132px;
+
+  padding: 12px;
+
+  border: 1px solid
+    rgba(139, 92, 246, 0.28);
+
+  border-radius: 15px;
+
+  color: inherit;
+
+  text-align: left;
+
+  font: inherit;
+
+  cursor: pointer;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(139, 92, 246, 0.18),
+      transparent 43%
+    ),
+    radial-gradient(
+      circle at 0% 100%,
+      rgba(0, 230, 195, 0.09),
+      transparent 48%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(18, 33, 57, 0.95),
+      rgba(7, 17, 32, 0.98)
+    );
+
+  box-shadow:
+    inset 0 1px 0
+      rgba(255, 255, 255, 0.055),
+    0 8px 25px
+      rgba(0, 0, 0, 0.22);
+
+  transition:
+    transform 260ms ease,
+    border-color 220ms ease,
+    box-shadow 260ms ease;
+}
+
+
+.sidebar__premium::before {
+  content: "";
+
+  position: absolute;
+
+  inset: -1px;
+
+  border-radius: inherit;
+
+  background:
+    conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      rgba(35, 140, 255, 0.04) 70deg,
+      rgba(139, 92, 246, 0.62) 145deg,
+      rgba(0, 230, 195, 0.38) 210deg,
+      transparent 290deg
+    );
+
+  animation:
+    premiumBorderSpin 8s linear infinite;
+
+  z-index: 0;
+
+  pointer-events: none;
+}
+
+
+.sidebar__premium > * {
+  position: relative;
+  z-index: 2;
+}
+
+
+.sidebar__premium-glow {
+  position: absolute;
+
+  right: -30px;
+  top: -30px;
+
+  width: 85px;
+  height: 85px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(139, 92, 246, 0.20),
+      transparent 68%
+    );
+
+  filter: blur(5px);
+
+  animation:
+    premiumGlow 4s ease-in-out infinite alternate;
+
+  z-index: 1 !important;
+}
+
+
+.sidebar__premium-shine {
+  position: absolute;
+
+  top: -80%;
+  left: -45%;
+
+  width: 40%;
+  height: 260%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.055),
+      transparent
+    );
+
+  transform: rotate(18deg);
+
+  animation:
+    premiumShine 7s ease-in-out infinite;
+
+  z-index: 3 !important;
+
+  pointer-events: none;
+}
+
+
+.sidebar__premium-header {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 7px;
+}
+
+
+.sidebar__premium-icon {
+  display: grid;
+  place-items: center;
+
+  width: 29px;
+  height: 29px;
+
+  border-radius: 9px;
+
+  color: #c5a8ff;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(139, 92, 246, 0.22),
+      rgba(35, 140, 255, 0.10)
+    );
+
+  border:
+    1px solid
+    rgba(157, 115, 255, 0.28);
+
+  box-shadow:
+    0 0 15px
+    rgba(139, 92, 246, 0.12);
+
+  animation:
+    premiumIconFloat 3.5s ease-in-out infinite;
+}
+
+
+.sidebar__premium-label {
+  padding: 4px 7px;
+
+  border-radius: 999px;
+
+  color: #bda6ff;
+
+  font-size: 7px;
+  line-height: 1;
+
+  font-weight: 800;
+
+  letter-spacing: 0.13em;
+
+  background:
+    rgba(139, 92, 246, 0.075);
+
+  border:
+    1px solid
+    rgba(139, 92, 246, 0.19);
+}
+
+
+.sidebar__premium-title {
+  color: #f4f7ff;
+
+  font-size: 14px;
+  line-height: 1.2;
+
+  font-weight: 750;
+}
+
+
+.sidebar__premium-subtitle {
+  margin-top: 2px;
+
+  color: #70b5ff;
+
+  font-size: 9px;
+
+  font-weight: 650;
+}
+
+
+.sidebar__premium-line {
+  display: flex;
+
+  align-items: center;
+
+  gap: 3px;
+
+  margin-top: 7px;
+}
+
+
+.sidebar__premium-line span {
+  display: block;
+
+  height: 2px;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(35, 140, 255, 0.85),
+      rgba(139, 92, 246, 0.8)
+    );
+}
+
+
+.sidebar__premium-line span:nth-child(1) {
+  width: 20px;
+}
+
+
+.sidebar__premium-line span:nth-child(2) {
+  width: 8px;
+
+  opacity: 0.65;
+}
+
+
+.sidebar__premium-line span:nth-child(3) {
+  width: 4px;
+
+  opacity: 0.35;
+}
+
+
+.sidebar__premium-bottom {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 9px;
+
+  padding-top: 8px;
+
+  border-top:
+    1px solid
+    rgba(109, 139, 177, 0.10);
+}
+
+
+.sidebar__premium-bottom > span {
+  color: #7188a5;
+
+  font-size: 8px;
+
+  font-weight: 600;
+}
+
+
+.sidebar__premium-arrow {
+  display: grid;
+  place-items: center;
+
+  width: 21px;
+  height: 21px;
+
+  border-radius: 7px;
+
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(35, 140, 255, 0.76),
+      rgba(139, 92, 246, 0.72)
+    );
+
+  box-shadow:
+    0 0 13px
+    rgba(35, 140, 255, 0.18);
+
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease;
+}
+
+
+.sidebar__premium:hover {
+  transform:
+    translateY(-2px)
+    scale(1.008);
+
+  border-color:
+    rgba(139, 92, 246, 0.48);
+
+  box-shadow:
+    inset 0 1px 0
+      rgba(255, 255, 255, 0.075),
+    0 11px 30px
+      rgba(0, 0, 0, 0.28),
+    0 0 27px
+      rgba(139, 92, 246, 0.11);
+}
+
+
+.sidebar__premium:hover
+.sidebar__premium-arrow {
+  transform:
+    translate(2px, -2px);
+
+  box-shadow:
+    0 0 18px
+    rgba(35, 140, 255, 0.32);
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.sidebar__foot {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  flex: 0 0 auto;
+
+  min-height: 34px;
+
+  padding: 8px 8px 2px;
+
+  color: var(--sidebar-subtle);
+
+  font-size: 11px;
+
+  border-top:
+    1px solid
+    rgba(83, 119, 162, 0.14);
+}
+
+
+.sidebar__foot::before {
+  content: "";
+
+  position: absolute;
+
+  top: -1px;
+  left: 8px;
+
+  width: 36px;
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 230, 195, 0.7),
+      transparent
+    );
+
+  box-shadow:
+    0 0 8px
+    rgba(0, 230, 195, 0.25);
+}
+
+
+.sidebar__foot svg {
+  flex: 0 0 auto;
+
+  color: #6c84a4;
+}
+
+
+/* =========================================================
+   PRIME MODAL BACKDROP
+   ========================================================= */
+
+.prime-modal-backdrop {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9999;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  background:
+    rgba(2, 7, 15, 0.72);
+
+  backdrop-filter:
+    blur(10px);
+
+  -webkit-backdrop-filter:
+    blur(10px);
+
+  animation:
+    primeBackdropIn 220ms ease;
+}
+
+
+/* =========================================================
+   PRIME MODAL
+   ========================================================= */
+
+.prime-modal {
+  position: relative;
+
+  width: min(460px, 100%);
+
+  padding: 25px;
+
+  border-radius: 23px;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(139, 92, 246, 0.16),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 0% 100%,
+      rgba(0, 230, 195, 0.08),
+      transparent 32%
+    ),
+    linear-gradient(
+      145deg,
+      #0c1c32,
+      #07111f 70%
+    );
+
+  border:
+    1px solid
+    rgba(107, 157, 220, 0.24);
+
+  box-shadow:
+    0 30px 90px
+      rgba(0, 0, 0, 0.48),
+    0 0 60px
+      rgba(82, 75, 180, 0.10),
+    inset 0 1px 0
+      rgba(255, 255, 255, 0.07);
+
+  animation:
+    primeModalIn 360ms
+    cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+.prime-modal::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      120deg,
+      transparent 25%,
+      rgba(255, 255, 255, 0.025) 50%,
+      transparent 75%
+    );
+}
+
+
+.prime-modal__ambient {
+  position: absolute;
+
+  top: -100px;
+  right: -80px;
+
+  width: 220px;
+  height: 220px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(139, 92, 246, 0.18),
+      transparent 68%
+    );
+
+  filter: blur(10px);
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   CLOSE
+   ========================================================= */
+
+.prime-modal__close {
+  position: absolute;
+
+  top: 16px;
+  right: 16px;
+
+  z-index: 5;
+
+  display: grid;
+  place-items: center;
+
+  width: 34px;
+  height: 34px;
+
+  border-radius: 10px;
+
+  color: #8297b4;
+
+  background:
+    rgba(255, 255, 255, 0.035);
+
+  border:
+    1px solid
+    rgba(128, 158, 194, 0.12);
+
+  cursor: pointer;
+
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+
+.prime-modal__close:hover {
+  color: #ffffff;
+
+  background:
+    rgba(255, 255, 255, 0.075);
+
+  transform: rotate(4deg);
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.prime-modal__hero {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  padding-right: 38px;
+}
+
+
+.prime-modal__crown {
+  display: grid;
+  place-items: center;
+
+  width: 58px;
+  height: 58px;
+
+  min-width: 58px;
+
+  border-radius: 17px;
+
+  color: #d1baff;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(139, 92, 246, 0.24),
+      rgba(35, 140, 255, 0.12)
+    );
+
+  border:
+    1px solid
+    rgba(168, 133, 255, 0.28);
+
+  box-shadow:
+    0 0 30px
+    rgba(139, 92, 246, 0.16);
+
+  animation:
+    primeCrownFloat 3.5s ease-in-out infinite;
+}
+
+
+.prime-modal__eyebrow {
+  display: block;
+
+  color: #728baa;
+
+  font-size: 8px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.17em;
+}
+
+
+.prime-modal h2 {
+  margin: 3px 0 2px;
+
+  color: #f6f9ff;
+
+  font-size: 24px;
+
+  line-height: 1.1;
+
+  letter-spacing: -0.035em;
+}
+
+
+.prime-modal__hero p {
+  margin: 0;
+
+  color: #7891b1;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.prime-modal__status {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  margin-top: 18px;
+
+  padding: 6px 9px;
+
+  border-radius: 999px;
+
+  color: #75dcca;
+
+  font-size: 8px;
+
+  font-weight: 700;
+
+  background:
+    rgba(0, 230, 195, 0.055);
+
+  border:
+    1px solid
+    rgba(0, 230, 195, 0.12);
+}
+
+
+.prime-modal__status-dot {
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: #00e6c3;
+
+  box-shadow:
+    0 0 9px
+    rgba(0, 230, 195, 0.75);
+
+  animation:
+    statusPulse 1.8s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   DIVIDER
+   ========================================================= */
+
+.prime-modal__divider {
+  height: 1px;
+
+  margin:
+    18px 0 14px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(90, 130, 177, 0.20),
+      rgba(90, 130, 177, 0.04),
+      transparent
+    );
+}
+
+
+/* =========================================================
+   FEATURES
+   ========================================================= */
+
+.prime-modal__features {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+
+.prime-modal__feature {
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+
+  padding: 11px;
+
+  border-radius: 13px;
+
+  background:
+    rgba(255, 255, 255, 0.022);
+
+  border:
+    1px solid
+    rgba(100, 135, 176, 0.09);
+
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+
+.prime-modal__feature:hover {
+  background:
+    rgba(35, 140, 255, 0.045);
+
+  border-color:
+    rgba(35, 140, 255, 0.15);
+
+  transform:
+    translateX(2px);
+}
+
+
+.prime-modal__feature-icon {
+  display: grid;
+  place-items: center;
+
+  width: 34px;
+  height: 34px;
+
+  min-width: 34px;
+
+  border-radius: 10px;
+
+  color: #75bfff;
+
+  background:
+    rgba(35, 140, 255, 0.075);
+
+  border:
+    1px solid
+    rgba(35, 140, 255, 0.12);
+}
+
+
+.prime-modal__feature > div:nth-child(2) {
+  display: flex;
+
+  flex-direction: column;
+
+  min-width: 0;
+
+  flex: 1;
+}
+
+
+.prime-modal__feature strong {
+  color: #e9f2ff;
+
+  font-size: 11px;
+
+  font-weight: 700;
+}
+
+
+.prime-modal__feature span {
+  margin-top: 2px;
+
+  color: #6f86a3;
+
+  font-size: 8px;
+
+  line-height: 1.35;
+}
+
+
+.prime-modal__feature > svg {
+  flex: 0 0 auto;
+
+  color: #55d5be;
+}
+
+
+/* =========================================================
+   MODAL FOOTER
+   ========================================================= */
+
+.prime-modal__footer {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-top: 20px;
+
+  padding-top: 15px;
+
+  border-top:
+    1px solid
+    rgba(90, 130, 177, 0.11);
+}
+
+
+.prime-modal__footer-label {
+  display: block;
+
+  color: #617894;
+
+  font-size: 7px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.14em;
+}
+
+
+.prime-modal__footer strong {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #dceaff;
+
+  font-size: 10px;
+}
+
+
+.prime-modal__continue {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  padding: 9px 12px;
+
+  border: 0;
+
+  border-radius: 10px;
+
+  color: #ffffff;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  background:
+    linear-gradient(
+      135deg,
+      #268fff,
+      #7657e8
+    );
+
+  box-shadow:
+    0 0 18px
+    rgba(35, 140, 255, 0.18);
+
+  cursor: pointer;
+
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+
+.prime-modal__continue:hover {
+  transform:
+    translateY(-1px);
+
+  box-shadow:
+    0 0 25px
+    rgba(35, 140, 255, 0.30);
+}
+
+
+/* =========================================================
+   KEYFRAMES
+   ========================================================= */
+
+@keyframes sidebarLightSweep {
+  0%,
+  100% {
+    transform:
+      translate3d(-12%, -5%, 0)
+      rotate(-8deg);
+
+    opacity: 0.3;
+  }
+
+  50% {
+    transform:
+      translate3d(18%, 8%, 0)
+      rotate(-8deg);
+
+    opacity: 0.72;
+  }
+}
+
+
+@keyframes sidebarOrb {
+  0% {
+    transform:
+      translate3d(0, 0, 0)
+      scale(0.9);
+
+    opacity: 0.3;
+  }
+
+  100% {
+    transform:
+      translate3d(-35px, -25px, 0)
+      scale(1.12);
+
+    opacity: 0.68;
+  }
+}
+
+
+/* =========================================================
+   NEXUSBANK BRAND ANIMATIONS
+   ========================================================= */
+
+@keyframes brandAura {
+  0% {
+    transform:
+      translateX(-5px)
+      scale(0.92);
+
+    opacity: 0.38;
+  }
+
+  100% {
+    transform:
+      translateX(13px)
+      scale(1.08);
+
+    opacity: 0.78;
+  }
+}
+
+
+@keyframes brandLineFlow {
+  0%,
+  100% {
+    background-position: 100% 0;
+    opacity: 0.55;
+  }
+
+  50% {
+    background-position: 0% 0;
+    opacity: 1;
+  }
+}
+
+
+@keyframes logoHaloSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+@keyframes logoShine {
+  0%,
+  58% {
+    transform:
+      translateX(-125%)
+      rotate(12deg);
+  }
+
+  76%,
+  100% {
+    transform:
+      translateX(125%)
+      rotate(12deg);
+  }
+}
+
+
+@keyframes activeRailPulse {
+  0%,
+  100% {
+    opacity: 0.72;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+
+@keyframes premiumBorderSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+@keyframes premiumIconFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+
+@keyframes premiumGlow {
+  0% {
+    transform: scale(0.9);
+
+    opacity: 0.35;
+  }
+
+  100% {
+    transform: scale(1.18);
+
+    opacity: 0.72;
+  }
+}
+
+
+@keyframes premiumShine {
+  0%,
+  55% {
+    transform:
+      translateX(-160%)
+      rotate(18deg);
+  }
+
+  75%,
+  100% {
+    transform:
+      translateX(520%)
+      rotate(18deg);
+  }
+}
+
+
+@keyframes primeBackdropIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+@keyframes primeModalIn {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(18px)
+      scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+@keyframes primeCrownFloat {
+  0%,
+  100% {
+    transform:
+      translateY(0);
+  }
+
+  50% {
+    transform:
+      translateY(-3px);
+  }
+}
+
+
+@keyframes statusPulse {
+  0%,
+  100% {
+    opacity: 0.65;
+    transform: scale(0.9);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+  .sidebar {
+    width: 230px;
+    min-width: 230px;
+
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .sidebar__link {
+    gap: 10px;
+
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+
+@media (max-width: 960px) {
+  .sidebar {
+    display: none;
+  }
+
+  .prime-modal-backdrop {
+    padding: 16px;
+  }
+
+  .prime-modal {
+    padding: 20px;
+  }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY / REDUCED MOTION
+   ========================================================= */
+
+.sidebar__premium:focus-visible,
+.prime-modal__close:focus-visible,
+.prime-modal__continue:focus-visible {
+  outline: none;
+
+  box-shadow:
+    0 0 0 2px
+      rgba(35, 140, 255, 0.22),
+    0 0 20px
+      rgba(35, 140, 255, 0.16);
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar,
+  .sidebar *,
+  .sidebar::before,
+  .sidebar::after,
+  .prime-modal,
+  .prime-modal-backdrop {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+/* =========================================================
+   NEXUSBANK BRAND — STRONG VISIBLE VFX
+   ONLY BRAND AREA
+   ========================================================= */
+
+.sidebar__brand {
+  isolation: isolate;
+}
+
+
+/* Moving ambient glow behind the whole brand */
+
+.sidebar__brand::before {
+  content: "";
+
+  position: absolute;
+
+  left: -18px;
+  top: -15px;
+
+  width: 215px;
+  height: 72px;
+
+  border-radius: 24px;
+
+  background:
+    radial-gradient(
+      circle at 15% 50%,
+      rgba(35, 140, 255, 0.22),
+      transparent 38%
+    ),
+    radial-gradient(
+      circle at 55% 45%,
+      rgba(0, 230, 195, 0.14),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 90% 50%,
+      rgba(139, 92, 246, 0.16),
+      transparent 38%
+    );
+
+  filter: blur(10px);
+
+  opacity: 0.65;
+
+  animation:
+    nexusBrandAura 4s ease-in-out infinite alternate;
+
+  pointer-events: none;
+
+  z-index: -1;
+}
+
+
+/* Animated cyan/blue light underneath */
+
+.sidebar__brand::after {
+  content: "";
+
+  position: absolute;
+
+  left: 2px;
+  right: 2px;
+
+  bottom: -9px;
+
+  height: 2px;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(35, 140, 255, 0.15) 15%,
+      #258cff 35%,
+      #00e6c3 50%,
+      #8b5cf6 68%,
+      rgba(139, 92, 246, 0.08) 85%,
+      transparent 100%
+    );
+
+  background-size: 220% 100%;
+
+  animation:
+    nexusBrandLine 3.2s ease-in-out infinite;
+
+  box-shadow:
+    0 0 6px rgba(35, 140, 255, 0.40),
+    0 0 13px rgba(0, 230, 195, 0.18);
+
+  pointer-events: none;
+
+  z-index: 3;
+}
+
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.sidebar__logo {
+  position: relative;
+
+  width: 38px;
+  height: 38px;
+
+  min-width: 38px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 11px;
+
+  color: #10213a;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff 0%,
+      #e6f1ff 45%,
+      #cfe1f5 100%
+    );
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.70);
+
+  font-family: var(--font-display);
+
+  font-size: 19px;
+
+  font-weight: 800;
+
+  letter-spacing: -0.04em;
+
+  overflow: visible;
+
+  isolation: isolate;
+
+  transform:
+    translateZ(0);
+
+  box-shadow:
+    0 0 0 1px
+      rgba(35, 140, 255, 0.18),
+    0 5px 18px
+      rgba(0, 0, 0, 0.25),
+    0 0 18px
+      rgba(35, 140, 255, 0.15);
+
+  animation:
+    nexusLogoPulse 3.2s ease-in-out infinite;
+
+  transition:
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 260ms ease,
+    border-color 260ms ease;
+}
+
+
+/* =========================================================
+   LOGO OUTER NEON RING
+   ========================================================= */
+
+.sidebar__logo::after {
+  content: "";
+
+  position: absolute;
+
+  inset: -5px;
+
+  border-radius: 15px;
+
+  background:
+    conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      rgba(35, 140, 255, 0.10) 35deg,
+      rgba(35, 140, 255, 0.90) 85deg,
+      rgba(0, 230, 195, 0.95) 145deg,
+      rgba(139, 92, 246, 0.75) 215deg,
+      transparent 290deg,
+      transparent 360deg
+    );
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+
+  -webkit-mask-composite: xor;
+
+  mask-composite: exclude;
+
+  animation:
+    nexusLogoRing 2.8s linear infinite;
+
+  opacity: 0.95;
+
+  pointer-events: none;
+
+  z-index: 3;
+}
+
+
+/* =========================================================
+   LOGO LIGHT SWEEP
+   ========================================================= */
+
+.sidebar__logo::before {
+  content: "";
+
+  position: absolute;
+
+  top: -45%;
+  bottom: -45%;
+
+  left: -80%;
+
+  width: 55%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.98),
+      rgba(0, 230, 195, 0.55),
+      transparent
+    );
+
+  transform:
+    rotate(18deg);
+
+  filter:
+    blur(1px);
+
+  animation:
+    nexusLogoSweep 3.4s ease-in-out infinite;
+
+  pointer-events: none;
+
+  z-index: 2;
+}
+
+
+/* N stays crisp above effects */
+
+.sidebar__logo {
+  text-shadow:
+    0 0 1px rgba(255, 255, 255, 0.8);
+}
+
+
+/* =========================================================
+   BRAND TEXT
+   ========================================================= */
+
+.sidebar__brand strong {
+  position: relative;
+
+  z-index: 4;
+
+  color: #f4f8ff;
+
+  text-shadow:
+    0 0 10px
+      rgba(35, 140, 255, 0.08);
+
+  animation:
+    nexusTextGlow 3.8s ease-in-out infinite;
+
+  transition:
+    color 220ms ease,
+    text-shadow 220ms ease;
+}
+
+
+.sidebar__brand .eyebrow {
+  position: relative;
+
+  z-index: 4;
+
+  animation:
+    nexusSubtitleGlow 3.8s ease-in-out infinite;
+
+  transition:
+    color 220ms ease;
+}
+
+
+/* =========================================================
+   HOVER
+   ========================================================= */
+
+.sidebar__brand:hover {
+  transform:
+    translateX(2px);
+}
+
+
+.sidebar__brand:hover .sidebar__logo {
+  transform:
+    translateY(-2px)
+    rotate(-2deg)
+    scale(1.06);
+
+  border-color:
+    rgba(104, 190, 255, 0.90);
+
+  box-shadow:
+    0 0 0 1px
+      rgba(35, 140, 255, 0.40),
+    0 0 20px
+      rgba(35, 140, 255, 0.35),
+    0 0 38px
+      rgba(0, 230, 195, 0.15),
+    0 8px 25px
+      rgba(0, 0, 0, 0.30);
+}
+
+
+.sidebar__brand:hover strong {
+  color: #ffffff;
+
+  text-shadow:
+    0 0 14px
+      rgba(35, 140, 255, 0.28),
+    0 0 26px
+      rgba(0, 230, 195, 0.08);
+}
+
+
+.sidebar__brand:hover .eyebrow {
+  color: #8bbdff;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes nexusLogoRing {
+  from {
+    transform:
+      rotate(0deg);
+  }
+
+  to {
+    transform:
+      rotate(360deg);
+  }
+}
+
+
+@keyframes nexusLogoSweep {
+  0%,
+  42% {
+    left: -85%;
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  70% {
+    left: 135%;
+    opacity: 1;
+  }
+
+  78%,
+  100% {
+    left: 135%;
+    opacity: 0;
+  }
+}
+
+
+@keyframes nexusLogoPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px
+        rgba(35, 140, 255, 0.16),
+      0 5px 18px
+        rgba(0, 0, 0, 0.25),
+      0 0 15px
+        rgba(35, 140, 255, 0.10);
+  }
+
+  50% {
+    box-shadow:
+      0 0 0 1px
+        rgba(35, 140, 255, 0.30),
+      0 5px 18px
+        rgba(0, 0, 0, 0.25),
+      0 0 25px
+        rgba(35, 140, 255, 0.22),
+      0 0 38px
+        rgba(0, 230, 195, 0.08);
+  }
+}
+
+
+@keyframes nexusBrandAura {
+  0% {
+    transform:
+      translateX(-8px)
+      scale(0.90);
+
+    opacity: 0.40;
+  }
+
+  100% {
+    transform:
+      translateX(12px)
+      scale(1.08);
+
+    opacity: 0.85;
+  }
+}
+
+
+@keyframes nexusBrandLine {
+  0%,
+  100% {
+    background-position:
+      100% 0;
+
+    opacity: 0.55;
+  }
+
+  50% {
+    background-position:
+      0% 0;
+
+    opacity: 1;
+  }
+}
+
+
+@keyframes nexusTextGlow {
+  0%,
+  100% {
+    text-shadow:
+      0 0 8px
+        rgba(35, 140, 255, 0.05);
+  }
+
+  50% {
+    text-shadow:
+      0 0 14px
+        rgba(35, 140, 255, 0.16);
+  }
+}
+
+
+@keyframes nexusSubtitleGlow {
+  0%,
+  100% {
+    opacity: 0.72;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,115 @@
+/* ============================================================
+ * NexusBank — Responsive polish (Batch 7)
+ * Breakpoints:
+ *   sm  ≤ 640px  — phones
+ *   md  ≤ 900px  — tablets / small laptops
+ *   lg  ≤ 1200px — laptops
+ * ============================================================ */
+
+:root {
+  --nx-page-padding: 24px;
+}
+
+.page,
+.dashboard,
+.statements,
+.transactions,
+.fd-page,
+.admin-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px var(--nx-page-padding);
+}
+
+/* Grids ------------------------------------------------- */
+.account-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.dashboard__grid-2col,
+.admin-grid-2col {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+/* Tables become horizontally scrollable on small screens */
+.statements__table-wrap,
+.transactions__table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.statements__table,
+.transactions__table,
+.fd-table {
+  min-width: 640px;
+  width: 100%;
+}
+
+/* Header actions row wraps on small screens */
+.statements__actions,
+.transactions__filters,
+.statements__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+/* md ≤ 900px ------------------------------------------- */
+@media (max-width: 900px) {
+  :root { --nx-page-padding: 16px; }
+  .dashboard__grid-2col,
+  .admin-grid-2col,
+  .split {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* sm ≤ 640px ------------------------------------------- */
+@media (max-width: 640px) {
+  :root { --nx-page-padding: 12px; }
+  h1 { font-size: 1.5rem !important; }
+  h2 { font-size: 1.15rem !important; }
+
+  .account-card__balance { font-size: 1.5rem !important; }
+  .metric__value { font-size: 1.25rem !important; }
+
+  .notif-panel {
+    width: 320px;
+    right: -8px;
+  }
+
+  /* Turn label+input pairs into full-width stacks */
+  .fd-form label,
+  .statements__filters label {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .fd-form label input,
+  .fd-form label select,
+  .statements__filters label input,
+  .statements__filters label select {
+    width: 100%;
+  }
+}
+
+/* Prevent horizontal page scroll on any device */
+html, body { overflow-x: hidden; }
+img, svg { max-width: 100%; height: auto; }

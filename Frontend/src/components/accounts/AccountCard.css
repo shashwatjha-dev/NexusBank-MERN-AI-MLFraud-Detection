@@ -1,0 +1,1191 @@
+/* =========================================================
+   NEXUSBANK — PREMIUM ACCOUNT CARD
+   Deep Navy + NexusBank Green
+   Compact • Animated • Modern Banking UI
+========================================================= */
+
+.acct-card {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  padding: 18px;
+  overflow: hidden;
+  isolation: isolate;
+
+  border: 1px solid rgba(74, 137, 108, 0.18);
+  border-radius: 20px;
+
+  background:
+    radial-gradient(
+      420px 260px at 100% 0%,
+      rgba(34, 214, 111, 0.08),
+      transparent 65%
+    ),
+    radial-gradient(
+      350px 220px at 0% 100%,
+      rgba(13, 117, 77, 0.08),
+      transparent 70%
+    ),
+    linear-gradient(
+      145deg,
+      #0b1823 0%,
+      #081620 52%,
+      #06121c 100%
+    );
+
+  box-shadow:
+    0 20px 55px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.045);
+
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.acct-card::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      115deg,
+      transparent 20%,
+      rgba(53, 220, 136, 0.035) 45%,
+      transparent 70%
+    );
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition: opacity 0.4s ease;
+}
+
+.acct-card:hover {
+  transform: translateY(-5px);
+
+  border-color: rgba(53, 220, 136, 0.28);
+
+  box-shadow:
+    0 28px 65px rgba(0, 0, 0, 0.32),
+    0 0 38px rgba(34, 214, 111, 0.055),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.acct-card:hover::before {
+  opacity: 1;
+}
+
+/* =========================================================
+   BACKGROUND ATMOSPHERE
+========================================================= */
+
+.acct-card__ambient {
+  position: absolute;
+
+  width: 170px;
+  height: 170px;
+
+  border-radius: 50%;
+
+  filter: blur(65px);
+
+  pointer-events: none;
+  z-index: -2;
+
+  opacity: 0.08;
+
+  animation: accountAmbient 7s ease-in-out infinite alternate;
+}
+
+.acct-card__ambient--one {
+  top: -100px;
+  right: -55px;
+
+  background: #22d66f;
+}
+
+.acct-card__ambient--two {
+  bottom: -100px;
+  left: -65px;
+
+  background: #08794c;
+
+  animation-delay: -3s;
+}
+
+.acct-card__grid {
+  position: absolute;
+  inset: 0;
+
+  z-index: -1;
+
+  pointer-events: none;
+
+  opacity: 0.055;
+
+  background-image:
+    linear-gradient(
+      rgba(85, 178, 132, 0.12) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(85, 178, 132, 0.12) 1px,
+      transparent 1px
+    );
+
+  background-size: 34px 34px;
+
+  mask-image:
+    linear-gradient(
+      to bottom,
+      black,
+      transparent 78%
+    );
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.acct-card__header {
+  position: relative;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 12px;
+}
+
+.acct-card__identity {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  min-width: 0;
+}
+
+.acct-card__bank-icon {
+  width: 40px;
+  height: 40px;
+
+  flex: 0 0 40px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(53, 220, 136, 0.18);
+  border-radius: 11px;
+
+  color: #42df8c;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(53, 220, 136, 0.14),
+      rgba(53, 220, 136, 0.035)
+    );
+
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.18),
+    0 0 22px rgba(34, 214, 111, 0.04);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.acct-card:hover .acct-card__bank-icon {
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.22),
+    0 0 25px rgba(34, 214, 111, 0.1);
+}
+
+.acct-card__eyebrow {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #5e786d;
+
+  font-size: 8px;
+  font-weight: 800;
+
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.acct-card__label {
+  margin: 0;
+
+  color: #eef8f3;
+
+  font-size: 14px;
+  line-height: 1.15;
+
+  font-weight: 700;
+
+  letter-spacing: -0.02em;
+}
+
+.acct-card__subtitle {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #627a70;
+
+  font-size: 8px;
+}
+
+.acct-card__top-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+}
+
+.acct-card__pill {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 4px;
+
+  padding: 5px 8px;
+
+  border: 1px solid rgba(53, 220, 136, 0.18);
+  border-radius: 999px;
+
+  color: #42df8c;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(53, 220, 136, 0.10),
+      rgba(53, 220, 136, 0.035)
+    );
+
+  font-size: 7px;
+  font-weight: 800;
+
+  letter-spacing: 0.05em;
+
+  box-shadow:
+    0 0 18px rgba(34, 214, 111, 0.04);
+
+  animation: primaryPulse 3s ease-in-out infinite;
+}
+
+.acct-card__menu {
+  width: 29px;
+  height: 29px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(100, 137, 120, 0.15);
+  border-radius: 9px;
+
+  color: #71867e;
+
+  background: rgba(255, 255, 255, 0.018);
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.acct-card__menu:hover {
+  color: #42df8c;
+
+  border-color: rgba(53, 220, 136, 0.22);
+
+  background: rgba(34, 214, 111, 0.055);
+
+  transform: rotate(8deg);
+}
+
+/* =========================================================
+   BALANCE
+========================================================= */
+
+.acct-card__balance {
+  margin-top: 17px;
+}
+
+.acct-card__balance > span:first-child {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #5c746a;
+
+  font-size: 8px;
+  font-weight: 700;
+
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.acct-card__balance strong {
+  display: block;
+
+  color: #f4faf7;
+
+  font-size: 25px;
+  line-height: 1.05;
+
+  font-weight: 750;
+
+  letter-spacing: -0.04em;
+
+  text-shadow:
+    0 0 22px rgba(255, 255, 255, 0.025);
+}
+
+.acct-card__balance-status {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  margin-top: 6px;
+
+  color: #687f75;
+
+  font-size: 8px;
+}
+
+.acct-card__live-dot {
+  width: 5px;
+  height: 5px;
+
+  flex: 0 0 5px;
+
+  border-radius: 50%;
+
+  background: #38dc87;
+
+  box-shadow:
+    0 0 6px #38dc87,
+    0 0 13px rgba(56, 220, 135, 0.65);
+
+  animation: liveDot 1.8s ease-in-out infinite;
+}
+
+/* =========================================================
+   DEBIT SECTION
+========================================================= */
+
+.acct-card__debit-area {
+  margin-top: 15px;
+}
+
+.acct-card__card-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 7px;
+
+  color: #5d756b;
+
+  font-size: 7px;
+  font-weight: 800;
+
+  letter-spacing: 0.09em;
+}
+
+.acct-card__card-caption > span:first-child {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 5px;
+}
+
+.acct-card__active-status {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 4px;
+
+  color: #3bdc88;
+}
+
+.acct-card__active-status i {
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: #3bdc88;
+
+  box-shadow:
+    0 0 7px rgba(59, 220, 136, 0.8);
+}
+
+/* =========================================================
+   PREMIUM DEBIT CARD
+========================================================= */
+
+.nb-debit-card {
+  position: relative;
+
+  width: 100%;
+
+  aspect-ratio: 1.68 / 1;
+
+  min-height: 155px;
+
+  padding: 15px;
+
+  overflow: hidden;
+  isolation: isolate;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  border-radius: 17px;
+
+  background:
+    radial-gradient(
+      230px 150px at 100% 0%,
+      rgba(48, 226, 137, 0.20),
+      transparent 68%
+    ),
+    radial-gradient(
+      190px 130px at 0% 100%,
+      rgba(10, 113, 75, 0.22),
+      transparent 72%
+    ),
+    linear-gradient(
+      135deg,
+      #0b2928 0%,
+      #08212a 45%,
+      #071523 100%
+    );
+
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.32),
+    0 0 28px rgba(34, 214, 111, 0.045),
+    inset 0 1px 0 rgba(255, 255, 255, 0.13);
+
+  transform-style: preserve-3d;
+
+  cursor: pointer;
+
+  transition:
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.nb-debit-card:hover {
+  border-color: rgba(83, 230, 151, 0.25);
+
+  box-shadow:
+    0 25px 48px rgba(0, 0, 0, 0.38),
+    0 0 38px rgba(34, 214, 111, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.17);
+}
+
+/* =========================================================
+   MOVING SHINE
+========================================================= */
+
+.nb-debit-card__shine {
+  position: absolute;
+
+  top: -80%;
+
+  left: -50%;
+
+  width: 38%;
+  height: 260%;
+
+  z-index: 5;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.10),
+      transparent
+    );
+
+  transform: rotate(18deg);
+
+  filter: blur(2px);
+}
+
+/* =========================================================
+   CARD GLOW
+========================================================= */
+
+.nb-debit-card__glow {
+  position: absolute;
+
+  right: -75px;
+  bottom: -90px;
+
+  width: 190px;
+  height: 190px;
+
+  border-radius: 50%;
+
+  background: #22d66f;
+
+  filter: blur(65px);
+
+  opacity: 0.11;
+
+  pointer-events: none;
+
+  animation: cardGlow 4s ease-in-out infinite alternate;
+}
+
+/* =========================================================
+   DECORATIVE ORBITS
+========================================================= */
+
+.nb-debit-card__orbit {
+  position: absolute;
+
+  border: 1px solid rgba(102, 237, 169, 0.08);
+
+  border-radius: 50%;
+
+  pointer-events: none;
+
+  transform: rotate(-22deg);
+}
+
+.nb-debit-card__orbit--one {
+  width: 230px;
+  height: 78px;
+
+  right: -85px;
+  top: 25px;
+
+  animation: orbitOne 7s ease-in-out infinite;
+}
+
+.nb-debit-card__orbit--two {
+  width: 190px;
+  height: 65px;
+
+  right: -60px;
+  top: 32px;
+
+  opacity: 0.65;
+
+  animation: orbitTwo 5.5s ease-in-out infinite reverse;
+}
+
+/* =========================================================
+   CARD TOP
+========================================================= */
+
+.nb-debit-card__top {
+  position: relative;
+
+  z-index: 4;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.nb-debit-card__brand {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+}
+
+.nb-debit-card__brand-mark {
+  width: 25px;
+  height: 25px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 7px;
+
+  color: #062017;
+
+  background:
+    linear-gradient(
+      145deg,
+      #76f0b0 0%,
+      #3bdb88 50%,
+      #18bd68 100%
+    );
+
+  font-size: 13px;
+  font-weight: 900;
+
+  box-shadow:
+    0 0 18px rgba(53, 220, 136, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.nb-debit-card__brand strong {
+  display: block;
+
+  color: #ffffff;
+
+  font-size: 10px;
+
+  letter-spacing: -0.01em;
+}
+
+.nb-debit-card__brand small {
+  display: block;
+
+  margin-top: 1px;
+
+  color: rgba(255, 255, 255, 0.43);
+
+  font-size: 4.5px;
+
+  letter-spacing: 0.14em;
+}
+
+.nb-debit-card__contactless {
+  color: rgba(255, 255, 255, 0.60);
+
+  transform: rotate(90deg);
+
+  filter:
+    drop-shadow(
+      0 0 6px rgba(255, 255, 255, 0.08)
+    );
+}
+
+/* =========================================================
+   CHIP
+========================================================= */
+
+.nb-debit-card__chip {
+  position: relative;
+
+  z-index: 4;
+
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  width: 34px;
+  height: 25px;
+
+  margin-top: 13px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 255, 255, 0.20);
+
+  border-radius: 5px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f7e6a8 0%,
+      #c2a64d 45%,
+      #9b7c2c 100%
+    );
+
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.nb-debit-card__chip span {
+  border: 0.5px solid rgba(61, 48, 13, 0.42);
+}
+
+/* =========================================================
+   CARD NUMBER
+========================================================= */
+
+.nb-debit-card__number {
+  position: relative;
+
+  z-index: 4;
+
+  margin-top: 10px;
+
+  color: rgba(255, 255, 255, 0.94);
+
+  font-family:
+    "Courier New",
+    monospace;
+
+  font-size: clamp(10px, 1.05vw, 13px);
+
+  font-weight: 600;
+
+  letter-spacing: 0.105em;
+
+  text-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.32);
+}
+
+/* =========================================================
+   CARD BOTTOM
+========================================================= */
+
+.nb-debit-card__bottom {
+  position: absolute;
+
+  left: 15px;
+  right: 15px;
+  bottom: 12px;
+
+  z-index: 4;
+
+  display: flex;
+  align-items: flex-end;
+
+  gap: 14px;
+}
+
+.nb-card-field small {
+  display: block;
+
+  margin-bottom: 2px;
+
+  color: rgba(255, 255, 255, 0.38);
+
+  font-size: 4.5px;
+
+  letter-spacing: 0.10em;
+}
+
+.nb-card-field strong {
+  display: block;
+
+  max-width: 105px;
+
+  overflow: hidden;
+
+  color: rgba(255, 255, 255, 0.85);
+
+  font-size: 6.5px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.07em;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nb-card-network {
+  display: flex;
+  align-items: center;
+
+  margin-left: auto;
+}
+
+.nb-card-network span {
+  width: 17px;
+  height: 17px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.34);
+
+  box-shadow:
+    0 0 8px rgba(255, 255, 255, 0.04);
+}
+
+.nb-card-network span + span {
+  margin-left: -6px;
+
+  background: rgba(53, 220, 136, 0.66);
+}
+
+.nb-card-network small {
+  margin-left: 5px;
+
+  color: rgba(255, 255, 255, 0.45);
+
+  font-size: 4.5px;
+
+  letter-spacing: 0.06em;
+}
+
+/* =========================================================
+   SPARK
+========================================================= */
+
+.nb-debit-card__spark {
+  position: absolute;
+
+  top: 51px;
+  right: 14px;
+
+  z-index: 5;
+
+  color: rgba(255, 255, 255, 0.58);
+
+  filter:
+    drop-shadow(
+      0 0 7px rgba(255, 255, 255, 0.12)
+    );
+
+  animation: sparkFloat 2.6s ease-in-out infinite;
+}
+
+/* =========================================================
+   ACCOUNT META
+========================================================= */
+
+.acct-card__meta {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px 15px;
+
+  margin: 14px 0 0;
+
+  padding-top: 13px;
+
+  border-top: 1px solid rgba(77, 112, 98, 0.15);
+}
+
+.acct-card__meta dt {
+  margin-bottom: 3px;
+
+  color: #526b61;
+
+  font-size: 6.5px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+}
+
+.acct-card__meta dd {
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+
+  min-width: 0;
+
+  margin: 0;
+
+  overflow: hidden;
+
+  color: #aabdb3;
+
+  font-size: 8px;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.acct-card__meta dd.mono {
+  font-family: "Courier New", monospace;
+}
+
+.acct-card__icon-btn {
+  width: 20px;
+  height: 20px;
+
+  flex: 0 0 20px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(91, 139, 119, 0.13);
+
+  border-radius: 6px;
+
+  color: #61776d;
+
+  background: rgba(255, 255, 255, 0.02);
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.acct-card__icon-btn:hover {
+  color: #42df8c;
+
+  border-color: rgba(53, 220, 136, 0.22);
+
+  background: rgba(34, 214, 111, 0.055);
+
+  transform: scale(1.08);
+}
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.acct-card__status {
+  display: inline-flex !important;
+  align-items: center;
+
+  gap: 4px;
+}
+
+.acct-card__status.is-active {
+  color: #42dc8b !important;
+}
+
+.acct-card__status.is-frozen {
+  color: #fb7185 !important;
+}
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.acct-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 6px;
+
+  margin-top: 13px;
+
+  padding-top: 12px;
+
+  border-top: 1px solid rgba(77, 112, 98, 0.14);
+}
+
+.acct-card__actions button {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.acct-card__actions button:hover {
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   FROZEN ACCOUNT
+========================================================= */
+
+.acct-card.is-frozen {
+  filter: saturate(0.58);
+}
+
+.acct-card.is-frozen .nb-debit-card {
+  filter: grayscale(0.42);
+}
+
+.acct-card.is-frozen::after {
+  content: "ACCOUNT RESTRICTED";
+
+  position: absolute;
+
+  top: 14px;
+  left: 50%;
+
+  z-index: 20;
+
+  transform: translateX(-50%);
+
+  padding: 4px 8px;
+
+  border: 1px solid rgba(248, 113, 113, 0.18);
+
+  border-radius: 999px;
+
+  color: #fca5a5;
+
+  background: rgba(127, 29, 29, 0.30);
+
+  font-size: 6.5px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.07em;
+}
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes accountAmbient {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate3d(-13px, 11px, 0) scale(1.12);
+  }
+}
+
+@keyframes liveDot {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.8);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.18);
+  }
+}
+
+@keyframes primaryPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 rgba(34, 214, 111, 0);
+  }
+
+  50% {
+    box-shadow:
+      0 0 18px rgba(34, 214, 111, 0.07);
+  }
+}
+
+@keyframes cardGlow {
+  0% {
+    opacity: 0.07;
+    transform: scale(0.9);
+  }
+
+  100% {
+    opacity: 0.15;
+    transform: scale(1.12);
+  }
+}
+
+@keyframes orbitOne {
+  0%,
+  100% {
+    transform:
+      rotate(-22deg)
+      translateX(0);
+  }
+
+  50% {
+    transform:
+      rotate(-17deg)
+      translateX(9px);
+  }
+}
+
+@keyframes orbitTwo {
+  0%,
+  100% {
+    transform:
+      rotate(-22deg)
+      translateX(0);
+  }
+
+  50% {
+    transform:
+      rotate(-27deg)
+      translateX(-7px);
+  }
+}
+
+@keyframes sparkFloat {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(0) scale(0.9);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.15);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 700px) {
+  .acct-card {
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .acct-card__balance strong {
+    font-size: 23px;
+  }
+
+  .nb-debit-card {
+    min-height: 150px;
+  }
+}
+
+@media (max-width: 500px) {
+  .acct-card__top-actions {
+    gap: 4px;
+  }
+
+  .acct-card__pill {
+    padding: 4px 6px;
+    font-size: 6.5px;
+  }
+
+  .acct-card__meta {
+    gap: 9px;
+  }
+
+  .nb-debit-card {
+    min-height: 145px;
+  }
+
+  .nb-debit-card__number {
+    font-size: 9px;
+    letter-spacing: 0.08em;
+  }
+
+  .nb-card-field strong {
+    max-width: 82px;
+  }
+
+  .acct-card__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .acct-card__actions button:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .acct-card *,
+  .acct-card *::before,
+  .acct-card *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

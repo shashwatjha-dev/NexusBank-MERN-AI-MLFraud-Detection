@@ -1,0 +1,63 @@
+/* Design tokens. Every colour / spacing / shadow / radius is defined here. */
+:root {
+  /* Neutral palette (light) */
+  --color-bg: #f7f7f4;
+  --color-surface: #ffffff;
+  --color-surface-2: #f0efea;
+  --color-border: #e4e2db;
+  --color-text: #1a1d1a;
+  --color-text-muted: #5d605b;
+  --color-text-subtle: #8a8d87;
+
+  /* Brand */
+  --color-brand: #0b1220;
+  --color-brand-ink: #ffffff;
+  --color-accent: #1f7a4d;        /* signal green — LOW */
+  --color-accent-warm: #b8500e;   /* amber — MEDIUM */
+  --color-accent-hot: #c1352c;    /* coral — HIGH */
+
+  /* Semantic aliases */
+  --risk-low: var(--color-accent);
+  --risk-medium: var(--color-accent-warm);
+  --risk-high: var(--color-accent-hot);
+
+  /* Typography */
+  --font-display: "Sohne", "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter var", "Inter", "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Spacing scale (8pt grid) */
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  /* Elevation */
+  --shadow-sm: 0 1px 2px rgba(20, 20, 20, 0.06);
+  --shadow-md: 0 8px 24px rgba(20, 20, 20, 0.08);
+  --shadow-lg: 0 24px 60px rgba(20, 20, 20, 0.12);
+  --shadow-inset: inset 0 0 0 1px var(--color-border);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 120ms;
+  --dur-med: 240ms;
+  --dur-slow: 420ms;
+
+  /* Layout */
+  --sidebar-w: 264px;
+  --topbar-h: 64px;
+  --page-max: 1400px;
+}

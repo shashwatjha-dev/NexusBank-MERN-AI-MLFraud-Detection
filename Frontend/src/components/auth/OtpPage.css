@@ -1,0 +1,1373 @@
+/* =========================================================
+   NEXUSBANK — PREMIUM OTP SECURITY PAGE
+   Deep Navy + NexusBank Green
+========================================================= */
+
+.otp-page {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+
+  display: grid;
+  grid-template-columns: minmax(500px, 0.92fr) minmax(650px, 1.08fr);
+
+  background:
+    radial-gradient(
+      700px 650px at 27% 50%,
+      rgba(24, 185, 105, 0.13),
+      transparent 68%
+    ),
+    radial-gradient(
+      650px 550px at 78% 25%,
+      rgba(20, 120, 76, 0.12),
+      transparent 70%
+    ),
+    linear-gradient(
+      135deg,
+      #020914 0%,
+      #04121a 48%,
+      #06151b 100%
+    );
+
+  color: #f5faf8;
+  isolation: isolate;
+}
+
+
+/* =========================================================
+   BACKGROUND GRID
+========================================================= */
+
+.otp-background-grid {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(
+      rgba(53, 223, 137, 0.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(53, 223, 137, 0.035) 1px,
+      transparent 1px
+    );
+
+  background-size: 48px 48px;
+
+  mask-image:
+    radial-gradient(
+      ellipse at 42% 50%,
+      black 5%,
+      rgba(0, 0, 0, 0.8) 35%,
+      transparent 82%
+    );
+
+  animation: gridDrift 18s linear infinite;
+}
+
+@keyframes gridDrift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(48px, 48px, 0);
+  }
+}
+
+
+/* =========================================================
+   AMBIENT LIGHT
+========================================================= */
+
+.otp-background-glow {
+  position: absolute;
+  z-index: -1;
+
+  width: 520px;
+  height: 520px;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+  filter: blur(100px);
+
+  opacity: 0.18;
+
+  animation: ambientFloat 9s ease-in-out infinite alternate;
+}
+
+.otp-background-glow--one {
+  left: -190px;
+  top: 28%;
+
+  background: #16c86d;
+}
+
+.otp-background-glow--two {
+  right: -180px;
+  top: -180px;
+
+  background: #087b49;
+
+  animation-delay: -4s;
+}
+
+@keyframes ambientFloat {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  to {
+    transform: translate3d(30px, -25px, 0) scale(1.1);
+  }
+}
+
+
+/* =========================================================
+   LEFT HERO
+========================================================= */
+
+.otp-hero {
+  position: relative;
+
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  padding:
+    48px
+    42px
+    28px
+    52px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   BACK TO LOGIN
+========================================================= */
+
+.otp-back-login {
+  width: fit-content;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+
+  border: 0;
+  padding: 0;
+
+  background: transparent;
+
+  color: #e3eee9;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.otp-back-login:hover {
+  color: #35df89;
+  transform: translateX(-4px);
+}
+
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.otp-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  margin-top: 66px;
+}
+
+.otp-brand-logo {
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #7af2b1 0%,
+      #2bdd7f 45%,
+      #0b934f 100%
+    );
+
+  color: #04160e;
+
+  font-size: 27px;
+  font-weight: 900;
+
+  box-shadow:
+    0 15px 35px rgba(34, 214, 111, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+  animation: logoPulse 4s ease-in-out infinite;
+}
+
+@keyframes logoPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 15px 35px rgba(34, 214, 111, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+
+  50% {
+    box-shadow:
+      0 18px 45px rgba(34, 214, 111, 0.32),
+      0 0 25px rgba(34, 214, 111, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  }
+}
+
+.otp-brand-name {
+  color: #f4faf7;
+
+  font-size: 20px;
+  font-weight: 900;
+
+  letter-spacing: 0.09em;
+}
+
+.otp-brand-name span {
+  color: #35df89;
+}
+
+.otp-brand-subtitle {
+  margin-top: 4px;
+
+  color: #78958a;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   HERO COPY
+========================================================= */
+
+.otp-hero-copy {
+  margin-top: 58px;
+}
+
+.otp-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #35df89;
+
+  font-size: 11px;
+  font-weight: 900;
+
+  letter-spacing: 0.12em;
+}
+
+.otp-hero-copy h1 {
+  max-width: 500px;
+
+  margin: 25px 0 20px;
+
+  color: #f6faf8;
+
+  font-size: clamp(48px, 4.4vw, 70px);
+
+  line-height: 0.98;
+
+  letter-spacing: -0.055em;
+}
+
+.otp-hero-copy h1 span {
+  display: block;
+
+  background:
+    linear-gradient(
+      90deg,
+      #26d879,
+      #6af0a8
+    );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+
+  animation: greenTextGlow 4s ease-in-out infinite;
+}
+
+@keyframes greenTextGlow {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+
+  50% {
+    filter: brightness(1.15);
+  }
+}
+
+.otp-hero-copy p {
+  max-width: 440px;
+
+  margin: 0;
+
+  color: #8da69c;
+
+  font-size: 15px;
+
+  line-height: 1.85;
+}
+
+
+/* =========================================================
+   SHIELD SCENE
+========================================================= */
+
+.otp-shield-scene {
+  position: relative;
+
+  width: 390px;
+  height: 290px;
+
+  margin:
+    0
+    auto
+    -5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* =========================================================
+   SHIELD
+========================================================= */
+
+.otp-shield {
+  position: relative;
+  z-index: 5;
+
+  width: 135px;
+  height: 165px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  clip-path: polygon(
+    50% 0%,
+    91% 16%,
+    84% 65%,
+    50% 100%,
+    16% 65%,
+    9% 16%
+  );
+
+  background:
+    linear-gradient(
+      145deg,
+      #a5f6c9 0%,
+      #42e58f 25%,
+      #0eb965 58%,
+      #056637 100%
+    );
+
+  color: #effff7;
+
+  filter:
+    drop-shadow(
+      0 25px 25px rgba(0, 95, 50, 0.45)
+    )
+    drop-shadow(
+      0 0 35px rgba(34, 214, 111, 0.35)
+    );
+
+  animation: shieldAmbient 3.5s ease-in-out infinite;
+}
+
+@keyframes shieldAmbient {
+  0%,
+  100% {
+    filter:
+      drop-shadow(
+        0 25px 25px rgba(0, 95, 50, 0.4)
+      )
+      drop-shadow(
+        0 0 25px rgba(34, 214, 111, 0.2)
+      );
+  }
+
+  50% {
+    filter:
+      drop-shadow(
+        0 28px 30px rgba(0, 95, 50, 0.5)
+      )
+      drop-shadow(
+        0 0 45px rgba(34, 214, 111, 0.45)
+      );
+  }
+}
+
+.otp-shield::before {
+  content: "";
+
+  position: absolute;
+  inset: 4px;
+
+  clip-path: inherit;
+
+  border: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+.otp-shield-inner {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 82%;
+  height: 82%;
+}
+
+
+/* =========================================================
+   PLATFORM
+========================================================= */
+
+.otp-shield-platform {
+  position: absolute;
+  z-index: 3;
+
+  bottom: 30px;
+
+  width: 215px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      180deg,
+      #dfffee 0%,
+      #72b994 38%,
+      #163d2e 100%
+    );
+
+  box-shadow:
+    0 25px 40px rgba(0, 0, 0, 0.42),
+    0 0 40px rgba(34, 214, 111, 0.22);
+
+  overflow: hidden;
+}
+
+.otp-platform-ring {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(255, 255, 255, 0.55);
+}
+
+.otp-platform-ring--one {
+  width: 180px;
+  height: 24px;
+}
+
+.otp-platform-ring--two {
+  width: 145px;
+  height: 16px;
+
+  border-color: rgba(34, 214, 111, 0.5);
+}
+
+
+/* =========================================================
+   ORBITS
+========================================================= */
+
+.otp-shield-orbit {
+  position: absolute;
+
+  border: 1px solid rgba(53, 223, 137, 0.3);
+
+  border-radius: 50%;
+
+  box-shadow:
+    0 0 20px rgba(34, 214, 111, 0.08);
+
+  animation: shieldOrbit 8s linear infinite;
+}
+
+.otp-shield-orbit--one {
+  width: 335px;
+  height: 115px;
+
+  transform: rotate(-18deg);
+}
+
+.otp-shield-orbit--two {
+  width: 285px;
+  height: 165px;
+
+  transform: rotate(58deg);
+
+  animation-direction: reverse;
+}
+
+@keyframes shieldOrbit {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+
+.otp-particle {
+  position: absolute;
+  z-index: 6;
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #4aeb98;
+
+  box-shadow:
+    0 0 8px #35df89,
+    0 0 20px rgba(53, 223, 137, 0.8);
+
+  animation: particlePulse 2.8s ease-in-out infinite;
+}
+
+.otp-particle--one {
+  left: 55px;
+  top: 120px;
+}
+
+.otp-particle--two {
+  right: 55px;
+  top: 90px;
+
+  animation-delay: -0.8s;
+}
+
+.otp-particle--three {
+  left: 95px;
+  bottom: 70px;
+
+  animation-delay: -1.5s;
+}
+
+.otp-particle--four {
+  right: 100px;
+  bottom: 55px;
+
+  animation-delay: -2s;
+}
+
+@keyframes particlePulse {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.75) translateY(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.25) translateY(-10px);
+  }
+}
+
+
+/* =========================================================
+   BENEFITS
+========================================================= */
+
+.otp-benefits {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 12px;
+
+  width: min(100%, 500px);
+
+  margin-top: -8px;
+}
+
+.otp-benefit {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  padding: 15px;
+
+  border: 1px solid rgba(70, 143, 112, 0.18);
+
+  border-radius: 15px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(10, 32, 35, 0.76),
+      rgba(5, 18, 26, 0.75)
+    );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.035);
+
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.otp-benefit:hover {
+  transform: translateY(-4px);
+
+  border-color: rgba(53, 223, 137, 0.35);
+
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.22),
+    0 0 25px rgba(34, 214, 111, 0.05);
+}
+
+.otp-benefit-icon {
+  width: 42px;
+  height: 42px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 13px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(34, 214, 111, 0.15),
+      rgba(34, 214, 111, 0.04)
+    );
+
+  color: #35df89;
+
+  box-shadow:
+    inset 0 0 15px rgba(34, 214, 111, 0.05);
+}
+
+.otp-benefit strong {
+  display: block;
+
+  color: #e9f6f0;
+
+  font-size: 12px;
+}
+
+.otp-benefit span {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #718d82;
+
+  font-size: 10px;
+
+  line-height: 1.45;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.otp-hero-footer {
+  display: flex;
+  align-items: center;
+
+  margin-top: auto;
+  padding-top: 24px;
+
+  border-top: 1px solid rgba(78, 133, 108, 0.14);
+}
+
+.otp-footer-security {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+
+  color: #718d82;
+
+  font-size: 10px;
+}
+
+.otp-footer-security svg {
+  flex-shrink: 0;
+
+  color: #35df89;
+}
+
+.otp-footer-security strong {
+  display: block;
+
+  color: #dbe9e3;
+
+  font-size: 10px;
+}
+
+.otp-footer-security span {
+  display: block;
+
+  margin-top: 4px;
+}
+
+.otp-footer-divider {
+  width: 1px;
+  height: 35px;
+
+  margin: 0 28px;
+
+  background: rgba(96, 141, 121, 0.2);
+}
+
+.otp-copyright {
+  color: #d4e2dc;
+
+  font-size: 10px;
+}
+
+.otp-copyright strong {
+  display: block;
+}
+
+.otp-copyright span {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #617b70;
+}
+
+
+/* =========================================================
+   RIGHT CONTENT
+========================================================= */
+
+.otp-content {
+  position: relative;
+
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 42px 48px 42px 10px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   OTP CARD
+========================================================= */
+
+.otp-card {
+  position: relative;
+
+  width: min(100%, 840px);
+
+  padding: 42px 44px 34px;
+
+  border: 1px solid rgba(67, 151, 111, 0.34);
+
+  border-radius: 27px;
+
+  background:
+    radial-gradient(
+      420px 320px at 90% 5%,
+      rgba(34, 214, 111, 0.08),
+      transparent 70%
+    ),
+    radial-gradient(
+      300px 300px at 5% 100%,
+      rgba(10, 111, 69, 0.06),
+      transparent 70%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(7, 25, 34, 0.96),
+      rgba(3, 14, 23, 0.98)
+    );
+
+  box-shadow:
+    0 45px 110px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.055),
+    0 0 70px rgba(34, 214, 111, 0.025);
+
+  backdrop-filter: blur(28px);
+
+  overflow: hidden;
+}
+
+.otp-card::before {
+  content: "";
+
+  position: absolute;
+
+  width: 260px;
+  height: 260px;
+
+  top: -160px;
+  right: -90px;
+
+  border-radius: 50%;
+
+  background: rgba(34, 214, 111, 0.09);
+
+  filter: blur(60px);
+
+  pointer-events: none;
+}
+
+.otp-card::after {
+  content: "";
+
+  position: absolute;
+
+  left: 12%;
+  right: 12%;
+  bottom: 0;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(53, 223, 137, 0.4),
+      transparent
+    );
+
+  animation: cardLine 4s ease-in-out infinite;
+}
+
+@keyframes cardLine {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+
+/* =========================================================
+   STEPPER
+========================================================= */
+
+.otp-stepper {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  margin-bottom: 28px;
+}
+
+.otp-step-label {
+  color: #35df89;
+
+  font-size: 10px;
+  font-weight: 900;
+
+  letter-spacing: 0.13em;
+}
+
+.otp-step-line {
+  display: flex;
+  align-items: center;
+
+  flex: 1;
+
+  gap: 10px;
+}
+
+.otp-step-number {
+  width: 27px;
+  height: 27px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(100, 126, 118, 0.3);
+
+  border-radius: 50%;
+
+  color: #657c73;
+
+  font-size: 10px;
+}
+
+.otp-step-number.active {
+  border-color: #35df89;
+
+  background: #2cdd80;
+
+  color: #04160e;
+
+  box-shadow:
+    0 0 20px rgba(53, 223, 137, 0.25);
+}
+
+.otp-step-dash {
+  flex: 1;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(53, 223, 137, 0.6),
+      rgba(53, 223, 137, 0.1)
+    );
+
+  background-size: 10px 1px;
+
+  background-repeat: repeat-x;
+}
+
+
+/* =========================================================
+   MAIL ICON
+========================================================= */
+
+.otp-mail-icon {
+  position: relative;
+  z-index: 2;
+
+  width: 58px;
+  height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 22px;
+
+  border: 1px solid rgba(53, 223, 137, 0.22);
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(34, 214, 111, 0.16),
+      rgba(34, 214, 111, 0.035)
+    );
+
+  color: #48e996;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.otp-card-header {
+  position: relative;
+  z-index: 2;
+}
+
+.otp-card-header h2 {
+  margin: 0;
+
+  color: #f5faf8;
+
+  font-size: clamp(35px, 3vw, 50px);
+
+  line-height: 1.02;
+
+  letter-spacing: -0.045em;
+}
+
+.otp-card-header p {
+  margin: 15px 0 27px;
+
+  color: #839a91;
+
+  font-size: 14px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   CHANGE EMAIL
+========================================================= */
+
+.otp-change-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 20px;
+
+  padding: 10px 13px;
+
+  border: 1px solid rgba(53, 223, 137, 0.14);
+
+  border-radius: 10px;
+
+  background: rgba(34, 214, 111, 0.035);
+
+  color: #7e998e;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.otp-change-email:hover {
+  color: #35df89;
+
+  border-color: rgba(53, 223, 137, 0.3);
+
+  background: rgba(34, 214, 111, 0.07);
+
+  transform: translateX(-3px);
+}
+
+
+/* =========================================================
+   EXPIRED
+========================================================= */
+
+.otp-expired-page {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px;
+}
+
+.otp-expired-card {
+  width: min(450px, 100%);
+
+  padding: 42px;
+
+  border: 1px solid rgba(53, 223, 137, 0.22);
+
+  border-radius: 25px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(9, 32, 35, 0.96),
+      rgba(4, 16, 25, 0.98)
+    );
+
+  box-shadow:
+    0 45px 100px rgba(0, 0, 0, 0.5);
+}
+
+.otp-expired-icon {
+  width: 58px;
+  height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 22px;
+
+  border-radius: 17px;
+
+  background: rgba(34, 214, 111, 0.1);
+
+  color: #35df89;
+}
+
+.otp-page-eyebrow {
+  color: #35df89;
+
+  font-size: 10px;
+  font-weight: 900;
+
+  letter-spacing: 0.13em;
+}
+
+.otp-expired-card h2 {
+  margin: 12px 0;
+
+  color: #f5faf8;
+
+  font-size: 32px;
+}
+
+.otp-expired-card p {
+  color: #849b90;
+
+  line-height: 1.7;
+}
+
+.otp-back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 20px;
+
+  padding: 12px 17px;
+
+  border: 1px solid rgba(53, 223, 137, 0.2);
+
+  border-radius: 10px;
+
+  background: rgba(34, 214, 111, 0.07);
+
+  color: #35df89;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1250px) {
+  .otp-page {
+    grid-template-columns:
+      minmax(420px, 0.85fr)
+      minmax(580px, 1.15fr);
+  }
+
+  .otp-hero {
+    padding-left: 36px;
+    padding-right: 25px;
+  }
+
+  .otp-content {
+    padding-right: 30px;
+  }
+
+  .otp-shield-scene {
+    transform: scale(0.9);
+  }
+
+  .otp-card {
+    padding: 36px;
+  }
+}
+
+
+@media (max-width: 1000px) {
+  .otp-page {
+    grid-template-columns: 1fr;
+
+    overflow-y: auto;
+  }
+
+  .otp-hero {
+    min-height: auto;
+
+    padding:
+      35px
+      30px
+      25px;
+  }
+
+  .otp-hero-copy {
+    margin-top: 48px;
+  }
+
+  .otp-shield-scene {
+    margin-top: 10px;
+  }
+
+  .otp-hero-footer {
+    margin-top: 30px;
+  }
+
+  .otp-content {
+    padding:
+      25px
+      30px
+      50px;
+  }
+
+  .otp-card {
+    width: min(760px, 100%);
+  }
+}
+
+
+@media (max-width: 650px) {
+  .otp-hero {
+    padding:
+      25px
+      20px
+      15px;
+  }
+
+  .otp-brand {
+    margin-top: 48px;
+  }
+
+  .otp-hero-copy h1 {
+    font-size: 46px;
+  }
+
+  .otp-shield-scene {
+    width: 320px;
+    height: 250px;
+
+    transform: scale(0.85);
+    margin:
+      -5px
+      auto
+      -20px;
+  }
+
+  .otp-benefits {
+    grid-template-columns: 1fr;
+  }
+
+  .otp-hero-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .otp-footer-divider {
+    display: none;
+  }
+
+  .otp-copyright {
+    text-align: left;
+  }
+
+  .otp-content {
+    padding:
+      15px
+      15px
+      35px;
+  }
+
+  .otp-card {
+    padding: 28px 20px;
+
+    border-radius: 21px;
+  }
+
+  .otp-card-header h2 {
+    font-size: 36px;
+  }
+
+  .otp-card-header p br {
+    display: none;
+  }
+
+  .otp-stepper {
+    margin-bottom: 25px;
+  }
+}
+
+
+@media (max-width: 420px) {
+  .otp-hero-copy h1 {
+    font-size: 40px;
+  }
+
+  .otp-shield-scene {
+    transform: scale(0.72);
+    margin-top: -15px;
+    margin-bottom: -45px;
+  }
+
+  .otp-card-header h2 {
+    font-size: 32px;
+  }
+
+  .otp-card {
+    padding:
+      25px
+      16px;
+  }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .otp-background-grid,
+  .otp-background-glow,
+  .otp-brand-logo,
+  .otp-hero-copy h1 span,
+  .otp-shield,
+  .otp-shield-orbit,
+  .otp-particle,
+  .otp-card::after {
+    animation: none !important;
+  }
+}

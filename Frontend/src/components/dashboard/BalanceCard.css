@@ -1,0 +1,49 @@
+.balance-card {
+  position: relative;
+  overflow: hidden;
+  padding: 32px;
+  border-radius: var(--radius-xl);
+  background:
+    radial-gradient(80% 200% at 100% 0%, color-mix(in oklab, var(--color-accent) 22%, transparent), transparent 60%),
+    var(--color-brand);
+  color: var(--color-brand-ink);
+  box-shadow: var(--shadow-lg);
+  min-height: 260px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.balance-card__grain {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.06), transparent 40%);
+  pointer-events: none;
+}
+.balance-card__eyebrow {
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: color-mix(in oklab, var(--color-brand-ink) 60%, transparent);
+}
+.balance-card__amount {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 3vw + 1rem, 3.4rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.balance-card__meta { display: flex; gap: 8px; flex-wrap: wrap; }
+.balance-card__pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--color-brand-ink) 8%, transparent);
+  color: color-mix(in oklab, var(--color-brand-ink) 90%, transparent);
+  font-size: 12px;
+}
+.balance-card__pill--up   strong { color: var(--color-accent); }
+.balance-card__pill--down strong { color: var(--risk-high); }
+.balance-card__footer {
+  margin-top: auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  padding-top: 16px;
+  border-top: 1px solid color-mix(in oklab, var(--color-brand-ink) 12%, transparent);
+}
+.balance-card__footer div { display: flex; flex-direction: column; gap: 4px; }
+.balance-card__footer .eyebrow { color: color-mix(in oklab, var(--color-brand-ink) 50%, transparent); }
+.balance-card__footer strong { font-size: 18px; }

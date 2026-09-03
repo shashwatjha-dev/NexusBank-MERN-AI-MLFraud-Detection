@@ -1,0 +1,833 @@
+/*
+===============================================================================
+NEXUSBANK — TRANSFER FORM
+REFERENCE-MATCHED / MODERN / RESPONSIVE
+===============================================================================
+- Existing TransferForm.jsx ke saath compatible
+- Existing functionality/test IDs untouched
+- Premium dark banking UI
+- Modern hover/focus/shine animations
+- Desktop + tablet + mobile responsive
+===============================================================================
+*/
+
+.transfer-form {
+  --tf-bg: rgba(7, 20, 36, 0.72);
+  --tf-bg-focus: rgba(10, 27, 46, 0.94);
+  --tf-border: rgba(65, 96, 135, 0.26);
+  --tf-border-hover: rgba(86, 121, 163, 0.42);
+  --tf-accent: #25e3b0;
+  --tf-accent-soft: rgba(37, 227, 176, 0.1);
+  --tf-text: #edf4fb;
+  --tf-muted: #7d91ad;
+  --tf-label: #91a1b7;
+  --tf-error: #ff647d;
+
+  --tf-font:
+    "IBM Plex Sans",
+    "Manrope",
+    "Inter",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  color: var(--tf-text);
+  font-family: var(--tf-font);
+}
+
+/* ============================================================================
+   FORM SPACING
+============================================================================ */
+
+.transfer-form.stack-5 {
+  gap: 0;
+}
+
+.transfer-form > .stack-5 {
+  gap: 0;
+}
+
+.transfer-form > * {
+  min-width: 0;
+}
+
+/* ============================================================================
+   FIELD
+============================================================================ */
+
+.transfer-form__field {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 7px;
+
+  width: 100%;
+  min-width: 0;
+
+  margin: 0 0 16px;
+}
+
+.transfer-form__field:last-of-type {
+  margin-bottom: 16px;
+}
+
+.transfer-form .field__label {
+  display: block;
+
+  color: var(--tf-label);
+
+  font-size: 11px;
+  line-height: 1;
+
+  font-weight: 520;
+
+  letter-spacing: 0.01em;
+}
+
+/* ============================================================================
+   SELECT
+============================================================================ */
+
+.transfer-form__select {
+  position: relative;
+
+  width: 100%;
+  height: 47px;
+  min-height: 47px;
+
+  padding: 0 43px 0 13px;
+
+  border: 1px solid var(--tf-border);
+  border-radius: 11px;
+
+  outline: none;
+
+  color: #e5edf6;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(15, 31, 52, 0.94),
+      rgba(8, 20, 36, 0.94)
+    );
+
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.018),
+    0 5px 16px rgba(0, 0, 0, 0.055);
+
+  font-family: var(--tf-font);
+
+  font-size: 14px;
+  font-weight: 500;
+
+  line-height: 47px;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* Custom dropdown arrow */
+
+.transfer-form__field:has(.transfer-form__select)::after {
+  content: "";
+
+  position: absolute;
+
+  right: 16px;
+  bottom: 16px;
+
+  width: 7px;
+  height: 7px;
+
+  border-right: 1.5px solid #7e91aa;
+  border-bottom: 1.5px solid #7e91aa;
+
+  transform: rotate(45deg);
+
+  pointer-events: none;
+
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.transfer-form__field:has(.transfer-form__select):focus-within::after {
+  border-color: var(--tf-accent);
+
+  transform:
+    translateY(1px)
+    rotate(225deg);
+}
+
+.transfer-form__select:hover {
+  border-color: var(--tf-border-hover);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(17, 35, 58, 0.97),
+      rgba(8, 22, 39, 0.97)
+    );
+}
+
+.transfer-form__select:focus,
+.transfer-form__select:focus-visible {
+  outline: none;
+
+  border-color: rgba(37, 227, 176, 0.43);
+
+  background: var(--tf-bg-focus);
+
+  box-shadow:
+    0 0 0 3px rgba(37, 227, 176, 0.055),
+    inset 0 1px rgba(255, 255, 255, 0.025),
+    0 8px 24px rgba(0, 0, 0, 0.09);
+}
+
+.transfer-form__select option {
+  color: #e8eef6;
+  background: #0b1b30;
+}
+
+/* ============================================================================
+   SINGLE ACCOUNT SOURCE
+============================================================================ */
+
+.transfer-form__source-hint {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+
+  width: 100%;
+  min-height: 47px;
+
+  margin: 0 0 16px;
+
+  padding: 0 13px;
+
+  overflow: hidden;
+
+  border: 1px solid var(--tf-border);
+  border-radius: 11px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(15, 31, 52, 0.94),
+      rgba(8, 20, 36, 0.94)
+    );
+
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.018);
+}
+
+.transfer-form__source-hint::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+  left: -45%;
+
+  width: 28%;
+
+  transform: skewX(-18deg);
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.028),
+      transparent
+    );
+
+  animation: tf-source-sheen 6s linear infinite;
+}
+
+.transfer-form__source-hint .eyebrow {
+  position: relative;
+  z-index: 1;
+
+  flex: 0 0 auto;
+
+  margin-right: 3px;
+
+  color: #6f849f;
+
+  font-size: 8px;
+  font-weight: 800;
+
+  letter-spacing: 0.11em;
+
+  text-transform: uppercase;
+}
+
+.transfer-form__source-hint strong {
+  position: relative;
+  z-index: 1;
+
+  min-width: 0;
+
+  color: #e6edf6;
+
+  font-size: 13px;
+  font-weight: 620;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.transfer-form__source-hint strong svg {
+  color: #ffd05a;
+}
+
+.transfer-form__source-hint .subtle {
+  position: relative;
+  z-index: 1;
+
+  min-width: 0;
+
+  color: #7489a5;
+
+  font-size: 11px;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+@keyframes tf-source-sheen {
+  0%,
+  68% {
+    left: -45%;
+  }
+
+  100% {
+    left: 125%;
+  }
+}
+
+/* ============================================================================
+   INPUT COMPATIBILITY
+============================================================================ */
+
+.transfer-form input {
+  width: 100%;
+}
+
+.transfer-form > .input,
+.transfer-form > .form-field,
+.transfer-form .input-wrapper,
+.transfer-form .field {
+  width: 100%;
+  min-width: 0;
+}
+
+.transfer-form input[type="number"],
+.transfer-form input[type="text"],
+.transfer-form input[type="email"] {
+  width: 100%;
+
+  height: 47px;
+  min-height: 47px;
+
+  border: 1px solid var(--tf-border);
+  border-radius: 11px;
+
+  color: #e8eff7;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(15, 31, 52, 0.94),
+      rgba(8, 20, 36, 0.94)
+    );
+
+  font-size: 14px;
+  font-weight: 500;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.transfer-form input[type="number"]:hover,
+.transfer-form input[type="text"]:hover,
+.transfer-form input[type="email"]:hover {
+  border-color: var(--tf-border-hover);
+}
+
+.transfer-form input[type="number"]:focus,
+.transfer-form input[type="text"]:focus,
+.transfer-form input[type="email"]:focus {
+  outline: none;
+
+  border-color: rgba(37, 227, 176, 0.43);
+
+  background: var(--tf-bg-focus);
+
+  box-shadow:
+    0 0 0 3px rgba(37, 227, 176, 0.055),
+    inset 0 1px rgba(255, 255, 255, 0.025);
+}
+
+.transfer-form input::placeholder {
+  color: #637997;
+  opacity: 1;
+}
+
+.transfer-form input[type="number"] {
+  font-variant-numeric: tabular-nums;
+
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.transfer-form input[type="number"]::-webkit-inner-spin-button,
+.transfer-form input[type="number"]::-webkit-outer-spin-button {
+  margin: 0;
+
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* ============================================================================
+   INPUT LABEL / HINT COMPATIBILITY
+============================================================================ */
+
+.transfer-form > label:not(.transfer-form__field) {
+  width: 100%;
+  min-width: 0;
+
+  margin-bottom: 16px;
+}
+
+.transfer-form > label:not(.transfer-form__field) > span:first-child {
+  color: var(--tf-label);
+
+  font-size: 11px;
+}
+
+.transfer-form .field__hint,
+.transfer-form .input__hint,
+.transfer-form .hint,
+.transfer-form small {
+  color: #687d99;
+
+  font-size: 9px;
+
+  line-height: 1.4;
+}
+
+/* ============================================================================
+   ERROR
+============================================================================ */
+
+.transfer-form .field__msg--error {
+  display: block;
+
+  margin-top: -1px;
+
+  color: var(--tf-error);
+
+  font-size: 9px;
+
+  line-height: 1.35;
+}
+
+.transfer-form .field--error .transfer-form__select,
+.transfer-form .has-error .transfer-form__select {
+  border-color: rgba(255, 100, 125, 0.43);
+
+  box-shadow:
+    0 0 0 3px rgba(255, 100, 125, 0.045);
+}
+
+/* ============================================================================
+   BENEFICIARY PREVIEW
+============================================================================ */
+
+.transfer-form__preview {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+
+  width: 100%;
+
+  margin: -3px 0 14px;
+
+  padding: 10px 12px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(37, 227, 176, 0.16);
+
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(37, 227, 176, 0.045),
+      rgba(9, 29, 44, 0.38)
+    );
+}
+
+.transfer-form__preview::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 2px;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      180deg,
+      #25e3b0,
+      rgba(37, 227, 176, 0.08)
+    );
+
+  box-shadow:
+    0 0 10px rgba(37, 227, 176, 0.22);
+}
+
+.transfer-form__preview .eyebrow {
+  color: #26dcae;
+
+  font-size: 7px;
+  font-weight: 800;
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+}
+
+.transfer-form__preview strong {
+  color: #e6eef7;
+
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.transfer-form__preview .subtle {
+  color: #70859f;
+
+  font-size: 8px;
+}
+
+/* ============================================================================
+   REVIEW & SEND BUTTON
+============================================================================ */
+
+.transfer-form > button,
+.transfer-form > .button,
+.transfer-form [data-testid="transfer-submit"] {
+  position: relative;
+
+  width: 100%;
+
+  min-height: 44px;
+  height: 44px;
+
+  margin-top: 0;
+
+  overflow: hidden;
+
+  border: 0;
+  border-radius: 999px;
+
+  color: #0a1320;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f6f8fb 0%,
+      #e7edf4 100%
+    );
+
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.13),
+    inset 0 1px rgba(255, 255, 255, 0.85);
+
+  font-size: 14px;
+  font-weight: 680;
+
+  letter-spacing: -0.01em;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.transfer-form > button::before,
+.transfer-form > .button::before,
+.transfer-form [data-testid="transfer-submit"]::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+
+  left: -35%;
+
+  width: 22%;
+
+  transform: skewX(-18deg);
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.65),
+      transparent
+    );
+
+  pointer-events: none;
+}
+
+.transfer-form > button:hover,
+.transfer-form > .button:hover,
+.transfer-form [data-testid="transfer-submit"]:hover {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 11px 27px rgba(0, 0, 0, 0.17),
+    0 0 20px rgba(255, 255, 255, 0.035),
+    inset 0 1px rgba(255, 255, 255, 0.9);
+}
+
+.transfer-form > button:hover::before,
+.transfer-form > .button:hover::before,
+.transfer-form [data-testid="transfer-submit"]:hover::before {
+  animation: tf-button-sheen 1s ease-out;
+}
+
+.transfer-form > button:active,
+.transfer-form > .button:active,
+.transfer-form [data-testid="transfer-submit"]:active {
+  transform: translateY(0);
+}
+
+.transfer-form > button:focus-visible,
+.transfer-form > .button:focus-visible,
+.transfer-form [data-testid="transfer-submit"]:focus-visible {
+  outline: 2px solid rgba(37, 227, 176, 0.7);
+
+  outline-offset: 3px;
+}
+
+.transfer-form > button svg,
+.transfer-form > .button svg,
+.transfer-form [data-testid="transfer-submit"] svg {
+  width: 17px;
+  height: 17px;
+}
+
+@keyframes tf-button-sheen {
+  from {
+    left: -35%;
+  }
+
+  to {
+    left: 120%;
+  }
+}
+
+/* ============================================================================
+   DESKTOP COMPACT
+============================================================================ */
+
+@media (min-width: 1101px) {
+  .transfer-form__field {
+    margin-bottom: 14px;
+  }
+
+  .transfer-form__source-hint {
+    margin-bottom: 14px;
+  }
+
+  .transfer-form > label:not(.transfer-form__field) {
+    margin-bottom: 14px;
+  }
+}
+
+/* ============================================================================
+   TABLET
+============================================================================ */
+
+@media (max-width: 1100px) {
+  .transfer-form {
+    width: 100%;
+  }
+
+  .transfer-form__select,
+  .transfer-form input[type="number"],
+  .transfer-form input[type="text"],
+  .transfer-form input[type="email"] {
+    height: 49px;
+
+    min-height: 49px;
+  }
+
+  .transfer-form__field {
+    margin-bottom: 17px;
+  }
+}
+
+/* ============================================================================
+   MOBILE
+============================================================================ */
+
+@media (max-width: 700px) {
+  .transfer-form__field {
+    gap: 7px;
+
+    margin-bottom: 14px;
+  }
+
+  .transfer-form .field__label {
+    font-size: 10px;
+  }
+
+  .transfer-form__select {
+    height: 48px;
+
+    min-height: 48px;
+
+    padding-left: 12px;
+    padding-right: 40px;
+
+    font-size: 13px;
+  }
+
+  .transfer-form__source-hint {
+    min-height: 48px;
+
+    margin-bottom: 14px;
+
+    padding: 0 12px;
+  }
+
+  .transfer-form__source-hint strong {
+    font-size: 12px;
+  }
+
+  .transfer-form__source-hint .subtle {
+    font-size: 10px;
+  }
+
+  .transfer-form input[type="number"],
+  .transfer-form input[type="text"],
+  .transfer-form input[type="email"] {
+    height: 48px;
+
+    min-height: 48px;
+
+    font-size: 13px;
+  }
+
+  .transfer-form__preview {
+    margin-bottom: 13px;
+  }
+
+  .transfer-form > button,
+  .transfer-form > .button,
+  .transfer-form [data-testid="transfer-submit"] {
+    height: 46px;
+
+    min-height: 46px;
+  }
+}
+
+/* ============================================================================
+   SMALL MOBILE
+============================================================================ */
+
+@media (max-width: 420px) {
+  .transfer-form__select {
+    font-size: 12px;
+  }
+
+  .transfer-form__source-hint {
+    align-items: flex-start;
+
+    flex-wrap: wrap;
+
+    padding-top: 11px;
+    padding-bottom: 11px;
+  }
+
+  .transfer-form__source-hint .eyebrow {
+    width: 100%;
+
+    margin-bottom: -1px;
+  }
+
+  .transfer-form__source-hint strong {
+    max-width: 100%;
+  }
+
+  .transfer-form__source-hint .subtle {
+    width: 100%;
+
+    padding-left: 1px;
+  }
+
+  .transfer-form__preview strong {
+    font-size: 11px;
+  }
+}
+
+/* ============================================================================
+   REDUCED MOTION
+============================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .transfer-form *,
+  .transfer-form *::before,
+  .transfer-form *::after {
+    scroll-behavior: auto !important;
+
+    animation: none !important;
+
+    transition-duration: 0.01ms !important;
+  }
+}

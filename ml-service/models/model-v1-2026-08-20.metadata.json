@@ -1,0 +1,80 @@
+{
+  "trained_at": "2026-08-20T13:15:33.165380+00:00",
+  "seed": 42,
+  "dataset": {
+    "size": 50000,
+    "fraud_rate": 0.08,
+    "checksum_sha256": "3465c73d02ed425f98d278bffcc20452927556dde959d8611822e23fdb91f938"
+  },
+  "environment": {
+    "python": "3.12.10",
+    "numpy": "2.1.1",
+    "sklearn": "1.5.2",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "pipeline": {
+    "preprocessor": {
+      "continuous_scaled": [
+        "amount",
+        "amount_to_average_ratio",
+        "behavioural_deviation"
+      ],
+      "passthrough": [
+        "beneficiary_age_days",
+        "is_new_beneficiary",
+        "is_new_device",
+        "hour_of_day",
+        "transactions_last_5_minutes",
+        "previous_suspicious_count"
+      ]
+    },
+    "classifier": "sklearn.ensemble.GradientBoostingClassifier",
+    "classifier_params": {
+      "random_state": 42
+    }
+  },
+  "prediction_threshold": 0.5,
+  "metrics": {
+    "threshold": 0.5,
+    "roc_auc": 0.9028103332706121,
+    "pr_auc": 0.8394860764783879,
+    "f1": 0.8875070661390616,
+    "precision": 0.9727385377942999,
+    "recall": 0.816008316008316,
+    "confusion_matrix": {
+      "labels": [
+        0,
+        1
+      ],
+      "matrix": [
+        [
+          9016,
+          22
+        ],
+        [
+          177,
+          785
+        ]
+      ],
+      "true_negatives": 9016,
+      "false_positives": 22,
+      "false_negatives": 177,
+      "true_positives": 785
+    },
+    "positives_in_holdout": 962,
+    "negatives_in_holdout": 9038
+  },
+  "model_version": "model-v1-2026-08-20",
+  "feature_order": [
+    "amount",
+    "amount_to_average_ratio",
+    "beneficiary_age_days",
+    "is_new_beneficiary",
+    "is_new_device",
+    "hour_of_day",
+    "transactions_last_5_minutes",
+    "previous_suspicious_count",
+    "behavioural_deviation"
+  ],
+  "saved_at": "2026-08-20T13:15:33.214413+00:00"
+}

@@ -1,0 +1,286 @@
+.fraud-meter {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  padding: 4px 0 0;
+  text-align: center;
+}
+
+
+/* ==========================================================
+   SVG GAUGE
+   ========================================================== */
+
+.fraud-meter__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+
+/* Track */
+
+.fraud-meter__svg path:first-child {
+  opacity: 0.55;
+}
+
+
+/* Animated value arc */
+
+.fraud-meter__svg path:nth-child(2) {
+  transition:
+    stroke 0.35s ease,
+    filter 0.35s ease;
+}
+
+
+/* ==========================================================
+   CENTER CONTENT
+   ========================================================== */
+
+.fraud-meter__center {
+  position: absolute;
+
+  left: 50%;
+  top: 61%;
+
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  pointer-events: none;
+}
+
+
+/* ==========================================================
+   NUMBER
+   ========================================================== */
+
+.fraud-meter__value {
+  display: block;
+
+  font-family: var(--font-display);
+
+  font-size: 42px;
+  line-height: 0.95;
+
+  font-weight: 750;
+
+  letter-spacing: -0.055em;
+
+  transition:
+    color 0.35s ease,
+    transform 0.25s ease;
+}
+
+
+/* Small / medium sizing */
+
+.fraud-meter--sm .fraud-meter__value {
+  font-size: 32px;
+}
+
+.fraud-meter--lg .fraud-meter__value {
+  font-size: 50px;
+}
+
+
+/* ==========================================================
+   /100
+   ========================================================== */
+
+.fraud-meter__unit {
+  margin-top: 4px;
+
+  color: var(--color-text-subtle);
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.02em;
+}
+
+
+/* ==========================================================
+   RISK LABEL
+   ========================================================== */
+
+.fraud-meter__level {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 9px;
+
+  min-width: 70px;
+
+  padding: 5px 11px;
+
+  border-radius: 999px;
+
+  font-size: 10px;
+
+  line-height: 1;
+
+  font-weight: 750;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+
+  border: 1px solid
+    color-mix(
+      in srgb,
+      currentColor 18%,
+      transparent
+    );
+
+  backdrop-filter: blur(8px);
+
+  transition:
+    background 0.35s ease,
+    color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+
+/* ==========================================================
+   BANDS
+   ========================================================== */
+
+.fraud-meter__bands {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  width: 86%;
+
+  margin: -2px auto 0;
+
+  color: var(--color-text-subtle);
+
+  font-size: 9px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.04em;
+}
+
+
+.fraud-meter__bands span:nth-child(2) {
+  opacity: 0.75;
+
+  font-size: 8px;
+
+  letter-spacing: 0.08em;
+}
+
+
+/* ==========================================================
+   LOW
+   ========================================================== */
+
+.fraud-meter--md:has(.fraud-meter__level) {
+  /* Keeps sizing stable while risk colour comes
+     directly from the JSX enum. */
+}
+
+
+/* ==========================================================
+   HIGH-RISK VISUAL ENERGY
+   ========================================================== */
+
+.fraud-meter:has(
+  .fraud-meter__level
+) .fraud-meter__svg path:nth-child(2) {
+  filter: url("#fraud-meter-glow");
+}
+
+
+/* ==========================================================
+   HOVER
+   ========================================================== */
+
+.fraud-meter:hover .fraud-meter__value {
+  transform: scale(1.04);
+}
+
+
+.fraud-meter:hover .fraud-meter__level {
+  box-shadow:
+    0 5px 18px
+    color-mix(
+      in srgb,
+      currentColor 14%,
+      transparent
+    );
+}
+
+
+/* ==========================================================
+   SVG TICKS
+   ========================================================== */
+
+.fraud-meter__svg line {
+  transition:
+    opacity 0.25s ease,
+    stroke-width 0.25s ease;
+}
+
+
+.fraud-meter:hover .fraud-meter__svg line {
+  opacity: 0.85;
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 900px) {
+  .fraud-meter {
+    max-width: 290px;
+  }
+
+  .fraud-meter__value {
+    font-size: 38px;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .fraud-meter {
+    max-width: 260px;
+  }
+
+  .fraud-meter__value {
+    font-size: 36px;
+  }
+
+  .fraud-meter__bands {
+    width: 88%;
+  }
+}
+
+
+/* ==========================================================
+   REDUCED MOTION
+   ========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .fraud-meter *,
+  .fraud-meter *::before,
+  .fraud-meter *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
