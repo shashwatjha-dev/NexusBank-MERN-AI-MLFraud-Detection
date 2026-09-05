@@ -2,7 +2,10 @@ import axios from "axios";
 import { v4 as uuid } from "uuid";
 
 const BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
+  import.meta.env.VITE_API_BASE_URL ||
+  (import.meta.env.PROD
+    ? "https://nexusbank-backend-930z.onrender.com/api"
+    : "http://localhost:5000/api");
 
 export const TOKEN_STORAGE_KEY = "nexusbank.token";
 
@@ -46,10 +49,20 @@ function normalizeError(error) {
     };
   }
   if (error?.code === "ECONNABORTED") {
-    return { status: 0, code: "TIMEOUT", message: "Network timed out.", raw: error };
+    return {
+      status: 0,
+      code: "TIMEOUT",
+      message: "Network timed out.",
+      raw: error,
+    };
   }
   if (!error?.response) {
-    return { status: 0, code: "NETWORK_ERROR", message: "Cannot reach server.", raw: error };
+    return {
+      status: 0,
+      code: "NETWORK_ERROR",
+      message: "Cannot reach server.",
+      raw: error,
+    };
   }
   return {
     status: error.response.status,
