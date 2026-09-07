@@ -1,3 +1,18 @@
+/*
+ * =========================================================
+ * NEXUSBANK EMAIL SERVICE
+ * =========================================================
+ *
+ * DEVELOPMENT:
+ *   Gmail SMTP / Nodemailer
+ *
+ * PRODUCTION:
+ *   Brevo HTTP API
+ *
+ * This avoids SMTP port restrictions on Render.
+ * =========================================================
+ */
+
 import nodemailer from "nodemailer";
 
 /*
@@ -9,57 +24,6 @@ import nodemailer from "nodemailer";
 const isProduction = () =>
   String(process.env.NODE_ENV || "development").toLowerCase() ===
   "production";
-
-/*
- * =========================================================
- * GMAIL SMTP CONFIGURATION
- * =========================================================
- */
-
-const smtpConfigured = () =>
-  Boolean(
-    process.env.SMTP_HOST &&
-      process.env.SMTP_PORT &&
-      process.env.SMTP_USER &&
-      process.env.SMTP_PASS
-  );
-
-let transporter = null;
-
-function getTransporter() {
-  if (!smtpConfigured()) {
-    return null;
-  }
-
-  if (!transporter) {
-    transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT || 587),
-      secure:
-        String(process.env.SMTP_SECURE || "false").toLowerCase() ===
-        "true",
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
-  }
-
-  return transporter;
-}
-
-/*
- * =========================================================
- * FROM ADDRESS
- * =========================================================
- */
-
-function fromAddress() {
-  return (
-    process.env.MAIL_FROM ||
-    `NexusBank <${process.env.SMTP_USER}>`
-  );
-}
 
 /*
  * =========================================================
@@ -92,6 +56,415 @@ function maskedEmail(email) {
 
 /*
  * =========================================================
+ * FROM ADDRESS
+ * =========================================================
+ */
+
+function fromAddress() {
+  return (
+    process.env.MAIL_FROM ||
+    `NexusBank <${process.env.SMTP_USER || "noreply@example.com"}>`
+  );
+}
+
+/*
+ * =========================================================
+ * PARSE FROM ADDRESS
+ * =========================================================
+ */
+
+function parseFromAddress() {
+  const configured = fromAddress();
+
+  const match = configured.match(
+    /^(.*?)\s*<([^>]+)>$/
+  );
+
+  if (match) {
+    return {
+      name: match[1].trim(),
+      email: match[2].trim(),
+    };
+  }
+
+  return {
+    name: "NexusBank",
+    email: configured.trim(),
+  };
+}
+
+/*
+ * =========================================================
+ * DEVELOPMENT — GMAIL SMTP
+ * =========================================================
+ */
+
+const smtpConfigured = () =>
+  Boolean(
+    process.env.SMTP_HOST &&
+      process.env.SMTP_PORT &&
+      process.env.SMTP_USER &&
+      process.env.SMTP_PASS
+  );
+
+let transporter = null;
+
+function getTransporter() {
+  if (!smtpConfigured()) {
+    return null;
+  }
+
+  if (!transporter) {
+    transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+
+      port: Number(
+        process.env.SMTP_PORT || 587
+      ),
+
+      secure:
+        String(
+          process.env.SMTP_SECURE || "false"
+        ).toLowerCase() === "true",
+
+      auth: {
+        user:
+          process.env.SMTP_USER,
+
+        pass:
+          process.env.SMTP_PASS,
+      },
+    });
+  }
+
+  return transporter;
+}
+
+/*
+ * =========================================================
+ * PRODUCTION — BREVO API
+ * =========================================================
+ */
+
+const brevoConfigured = () =>
+  Boolean(
+    String(
+      process.env.BREVO_API_KEY || ""
+    ).trim()
+  );
+
+const BREVO_EMAIL_ENDPOINT =
+  "https://api.brevo.com/v3/smtp/email";
+
+/*
+ * =========================================================
+ * BREVO ATTACHMENT CONVERSION
+ * =========================================================
+ */
+
+function convertAttachmentForBrevo(
+  attachment
+) {
+  if (!attachment?.content) {
+    return null;
+  }
+
+  let base64Content = null;
+
+  if (
+    Buffer.isBuffer(
+      attachment.content
+    )
+  ) {
+    base64Content =
+      attachment.content.toString(
+        "base64"
+      );
+  } else if (
+    attachment.content instanceof Uint8Array
+  ) {
+    base64Content =
+      Buffer.from(
+        attachment.content
+      ).toString("base64");
+  } else if (
+    typeof attachment.content ===
+    "string"
+  ) {
+    base64Content =
+      Buffer.from(
+        attachment.content
+      ).toString("base64");
+  }
+
+  if (!base64Content) {
+    return null;
+  }
+
+  return {
+    name:
+      attachment.filename ||
+      "attachment",
+
+    content:
+      base64Content,
+  };
+}
+
+/*
+ * =========================================================
+ * BREVO SEND
+ * =========================================================
+ */
+
+async function sendThroughBrevo({
+  to,
+  subject,
+  text,
+  html,
+  attachments,
+}) {
+  if (!brevoConfigured()) {
+    console.warn(
+      JSON.stringify({
+        event:
+          "EMAIL_NOT_SENT",
+
+        type:
+          "BREVO",
+
+        recipient:
+          maskedEmail(to),
+
+        subject,
+
+        reason:
+          "BREVO_API_NOT_CONFIGURED",
+
+        hint:
+          "Configure BREVO_API_KEY in the production environment.",
+      })
+    );
+
+    return {
+      sent: false,
+
+      mode:
+        "not-configured",
+
+      error:
+        "BREVO_API_NOT_CONFIGURED",
+    };
+  }
+
+  const sender =
+    parseFromAddress();
+
+  const payload = {
+    sender: {
+      name:
+        sender.name,
+
+      email:
+        sender.email,
+    },
+
+    to: [
+      {
+        email:
+          String(to).trim(),
+      },
+    ],
+
+    subject,
+
+    textContent:
+      text,
+
+    htmlContent:
+      html,
+  };
+
+  /*
+   * -------------------------------------------------------
+   * ATTACHMENTS
+   * -------------------------------------------------------
+   */
+
+  if (
+    Array.isArray(attachments) &&
+    attachments.length > 0
+  ) {
+    const convertedAttachments =
+      attachments
+        .map(
+          convertAttachmentForBrevo
+        )
+        .filter(Boolean);
+
+    if (
+      convertedAttachments.length > 0
+    ) {
+      payload.attachment =
+        convertedAttachments;
+    }
+  }
+
+  try {
+    const response =
+      await fetch(
+        BREVO_EMAIL_ENDPOINT,
+        {
+          method:
+            "POST",
+
+          headers: {
+            accept:
+              "application/json",
+
+            "content-type":
+              "application/json",
+
+            "api-key":
+              process.env.BREVO_API_KEY,
+          },
+
+          body:
+            JSON.stringify(
+              payload
+            ),
+        }
+      );
+
+    const responseText =
+      await response.text();
+
+    let responseData = null;
+
+    try {
+      responseData =
+        responseText
+          ? JSON.parse(
+              responseText
+            )
+          : null;
+    } catch {
+      responseData = null;
+    }
+
+    if (!response.ok) {
+      console.error(
+        JSON.stringify({
+          event:
+            "EMAIL_SEND_FAILED",
+
+          type:
+            "BREVO",
+
+          recipient:
+            maskedEmail(to),
+
+          subject,
+
+          status:
+            response.status,
+
+          error:
+            responseData?.message ||
+            responseText ||
+            "Brevo email delivery failed.",
+
+          code:
+            responseData?.code ||
+            null,
+        })
+      );
+
+      return {
+        sent: false,
+
+        mode:
+          "brevo",
+
+        error:
+          responseData?.message ||
+          responseText ||
+          "Brevo email delivery failed.",
+      };
+    }
+
+    const messageId =
+      responseData?.messageId ||
+      null;
+
+    console.info(
+      JSON.stringify({
+        event:
+          "EMAIL_SENT",
+
+        type:
+          "BREVO",
+
+        recipient:
+          maskedEmail(to),
+
+        subject,
+
+        messageId,
+
+        provider:
+          "brevo-api",
+      })
+    );
+
+    return {
+      sent: true,
+
+      mode:
+        "brevo",
+
+      messageId,
+    };
+  } catch (error) {
+    console.error(
+      JSON.stringify({
+        event:
+          "EMAIL_SEND_FAILED",
+
+        type:
+          "BREVO",
+
+        recipient:
+          maskedEmail(to),
+
+        subject,
+
+        error:
+          error?.message ||
+          "Unknown Brevo API error.",
+
+        code:
+          error?.code ||
+          error?.name ||
+          null,
+      })
+    );
+
+    return {
+      sent: false,
+
+      mode:
+        "brevo",
+
+      error:
+        error?.message ||
+        "Brevo email delivery failed.",
+    };
+  }
+}
+
+/*
+ * =========================================================
  * GENERIC EMAIL SENDER
  * =========================================================
  */
@@ -107,60 +480,87 @@ async function sendEmail({
   if (!to) {
     console.warn(
       JSON.stringify({
-        event: "EMAIL_SKIPPED",
-        reason: "RECIPIENT_MISSING",
-        type: event,
+        event:
+          "EMAIL_SKIPPED",
+
+        reason:
+          "RECIPIENT_MISSING",
+
+        type:
+          event,
       })
     );
 
     return {
       sent: false,
-      mode: "skipped",
+
+      mode:
+        "skipped",
     };
   }
 
-  const mailer = getTransporter();
+  /*
+   * -------------------------------------------------------
+   * PRODUCTION → BREVO API
+   * -------------------------------------------------------
+   */
+
+  if (isProduction()) {
+    return sendThroughBrevo({
+      to,
+      subject,
+      text,
+      html,
+      attachments,
+    });
+  }
 
   /*
    * -------------------------------------------------------
-   * SMTP NOT CONFIGURED
+   * DEVELOPMENT → GMAIL SMTP
    * -------------------------------------------------------
    */
+
+  const mailer =
+    getTransporter();
 
   if (!mailer) {
     console.warn(
       JSON.stringify({
-        event: "EMAIL_NOT_SENT",
+        event:
+          "EMAIL_NOT_SENT",
 
-        type: event,
+        type:
+          event,
 
-        recipient: maskedEmail(to),
+        recipient:
+          maskedEmail(to),
 
         subject,
 
-        reason: "SMTP_NOT_CONFIGURED",
+        reason:
+          "SMTP_NOT_CONFIGURED",
 
         hint:
-          "Configure SMTP_HOST, SMTP_PORT, SMTP_USER and SMTP_PASS in the Backend environment.",
+          "Configure SMTP_HOST, SMTP_PORT, SMTP_USER and SMTP_PASS in the development environment.",
       })
     );
 
     return {
       sent: false,
-      mode: "not-configured",
-      error: "SMTP_NOT_CONFIGURED",
+
+      mode:
+        "not-configured",
+
+      error:
+        "SMTP_NOT_CONFIGURED",
     };
   }
 
-  /*
-   * -------------------------------------------------------
-   * EMAIL PAYLOAD
-   * -------------------------------------------------------
-   */
-
   try {
     const mailOptions = {
-      from: fromAddress(),
+      from:
+        fromAddress(),
 
       to,
 
@@ -171,57 +571,42 @@ async function sendEmail({
       html,
     };
 
-    /*
-     * -----------------------------------------------------
-     * ATTACHMENTS
-     * -----------------------------------------------------
-     */
-
     if (
       Array.isArray(attachments) &&
       attachments.length > 0
     ) {
-      mailOptions.attachments = attachments.map(
-        (attachment) => ({
-          filename:
-            attachment.filename ||
-            "attachment",
+      mailOptions.attachments =
+        attachments.map(
+          (attachment) => ({
+            filename:
+              attachment.filename ||
+              "attachment",
 
-          content:
-            attachment.content,
+            content:
+              attachment.content,
 
-          ...(attachment.contentType
-            ? {
-                contentType:
-                  attachment.contentType,
-              }
-            : {}),
-        })
-      );
+            ...(attachment.contentType
+              ? {
+                  contentType:
+                    attachment.contentType,
+                }
+              : {}),
+          })
+        );
     }
-
-    /*
-     * -----------------------------------------------------
-     * SEND THROUGH GMAIL SMTP
-     * -----------------------------------------------------
-     */
 
     const result =
       await mailer.sendMail(
         mailOptions
       );
 
-    /*
-     * -----------------------------------------------------
-     * SUCCESS
-     * -----------------------------------------------------
-     */
-
     console.info(
       JSON.stringify({
-        event: "EMAIL_SENT",
+        event:
+          "EMAIL_SENT",
 
-        type: event,
+        type:
+          event,
 
         recipient:
           maskedEmail(to),
@@ -240,24 +625,21 @@ async function sendEmail({
     return {
       sent: true,
 
-      mode: "gmail-smtp",
+      mode:
+        "gmail-smtp",
 
       messageId:
         result?.messageId ||
         null,
     };
   } catch (error) {
-    /*
-     * -----------------------------------------------------
-     * SMTP ERROR
-     * -----------------------------------------------------
-     */
-
     console.error(
       JSON.stringify({
-        event: "EMAIL_SEND_FAILED",
+        event:
+          "EMAIL_SEND_FAILED",
 
-        type: event,
+        type:
+          event,
 
         recipient:
           maskedEmail(to),
@@ -278,7 +660,8 @@ async function sendEmail({
     return {
       sent: false,
 
-      mode: "gmail-smtp",
+      mode:
+        "gmail-smtp",
 
       error:
         error?.message ||
@@ -307,7 +690,9 @@ export async function sendLoginOtpEmail({
 
   const minutes =
     Math.ceil(
-      Number(expiresInSeconds) / 60
+      Number(
+        expiresInSeconds
+      ) / 60
     );
 
   const subject =
@@ -337,7 +722,6 @@ export async function sendLoginOtpEmail({
     font-family:Arial,sans-serif;
     color:#172033;
   ">
-
     <div style="
       max-width:600px;
       margin:40px auto;
@@ -416,7 +800,6 @@ export async function sendLoginOtpEmail({
       </p>
 
     </div>
-
   </body>
 </html>
 `;
@@ -426,7 +809,8 @@ export async function sendLoginOtpEmail({
     subject,
     text,
     html,
-    event: "LOGIN_OTP",
+    event:
+      "LOGIN_OTP",
   });
 }
 
@@ -450,7 +834,9 @@ export async function sendPasswordResetOtpEmail({
 
   const minutes =
     Math.ceil(
-      Number(expiresInSeconds) / 60
+      Number(
+        expiresInSeconds
+      ) / 60
     );
 
   const subject =
@@ -484,7 +870,6 @@ export async function sendPasswordResetOtpEmail({
     font-family:Arial,sans-serif;
     color:#172033;
   ">
-
     <div style="
       max-width:600px;
       margin:40px auto;
@@ -570,7 +955,6 @@ export async function sendPasswordResetOtpEmail({
       </p>
 
     </div>
-
   </body>
 </html>
 `;
@@ -580,7 +964,8 @@ export async function sendPasswordResetOtpEmail({
     subject,
     text,
     html,
-    event: "PASSWORD_RESET_OTP",
+    event:
+      "PASSWORD_RESET_OTP",
   });
 }
 
@@ -620,15 +1005,20 @@ export async function sendTransferOtpEmail({
         ).toLocaleString(
           "en-IN",
           {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
+            minimumFractionDigits:
+              2,
+
+            maximumFractionDigits:
+              2,
           }
         )
       : "the requested amount";
 
   const minutes =
     Math.ceil(
-      Number(expiresInSeconds) / 60
+      Number(
+        expiresInSeconds
+      ) / 60
     );
 
   const subject =
@@ -669,7 +1059,6 @@ export async function sendTransferOtpEmail({
     font-family:Arial,sans-serif;
     color:#172033;
   ">
-
     <div style="
       max-width:600px;
       margin:40px auto;
@@ -730,7 +1119,9 @@ export async function sendTransferOtpEmail({
             ? `
               <p style="margin:0;word-break:break-all;">
                 <strong>Transaction ID:</strong>
-                ${escapeHtml(transactionId)}
+                ${escapeHtml(
+                  transactionId
+                )}
               </p>
             `
             : ""
@@ -782,7 +1173,6 @@ export async function sendTransferOtpEmail({
       </p>
 
     </div>
-
   </body>
 </html>
 `;
@@ -792,7 +1182,8 @@ export async function sendTransferOtpEmail({
     subject,
     text,
     html,
-    event: "TRANSFER_OTP",
+    event:
+      "TRANSFER_OTP",
   });
 }
 
@@ -813,7 +1204,8 @@ export async function sendStatementShareEmail({
   summary,
 }) {
   const period =
-    dateRange?.from && dateRange?.to
+    dateRange?.from &&
+    dateRange?.to
       ? `${dateRange.from} to ${dateRange.to}`
       : dateRange?.from
       ? `from ${dateRange.from}`
@@ -913,7 +1305,9 @@ export async function sendStatementShareEmail({
             </td>
 
             <td style="padding:8px 0;text-align:right;">
-              <strong>${escapeHtml(summary?.count ?? 0)}</strong>
+              <strong>${escapeHtml(
+                summary?.count ?? 0
+              )}</strong>
             </td>
           </tr>
 
@@ -927,7 +1321,9 @@ export async function sendStatementShareEmail({
               text-align:right;
               color:#0E9F6E;
             ">
-              <strong>${escapeHtml(summary?.credit ?? "₹0")}</strong>
+              <strong>${escapeHtml(
+                summary?.credit ?? "₹0"
+              )}</strong>
             </td>
           </tr>
 
@@ -941,7 +1337,9 @@ export async function sendStatementShareEmail({
               text-align:right;
               color:#DC2626;
             ">
-              <strong>${escapeHtml(summary?.debit ?? "₹0")}</strong>
+              <strong>${escapeHtml(
+                summary?.debit ?? "₹0"
+              )}</strong>
             </td>
           </tr>
 
@@ -985,9 +1383,15 @@ export async function sendStatementShareEmail({
     `NexusBank Statement shared by ${senderName}\n\n` +
     `Account: ${accountLabel}\n` +
     `Period: ${period}\n` +
-    `Entries: ${summary?.count ?? 0}\n` +
-    `Credits: ${summary?.credit ?? "₹0"}\n` +
-    `Debits: ${summary?.debit ?? "₹0"}\n\n` +
+    `Entries: ${
+      summary?.count ?? 0
+    }\n` +
+    `Credits: ${
+      summary?.credit ?? "₹0"
+    }\n` +
+    `Debits: ${
+      summary?.debit ?? "₹0"
+    }\n\n` +
     (message
       ? `Message from sender:\n${message}\n\n`
       : "") +
@@ -995,15 +1399,26 @@ export async function sendStatementShareEmail({
 
   return sendEmail({
     to,
+
     subject,
+
     text,
+
     html,
-    event: "STATEMENT_SHARE",
+
+    event:
+      "STATEMENT_SHARE",
+
     attachments: [
       {
-        filename: "nexusbank-statement.pdf",
-        content: pdfBuffer,
-        contentType: "application/pdf",
+        filename:
+          "nexusbank-statement.pdf",
+
+        content:
+          pdfBuffer,
+
+        contentType:
+          "application/pdf",
       },
     ],
   });
