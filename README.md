@@ -32,12 +32,13 @@
 
 <div align="center">
 
+[![🚀 LIVE FRONTEND](https://img.shields.io/badge/🚀%20LIVE%20FRONTEND-00E5C3?style=for-the-badge&labelColor=07111F)](https://nexusbank-frontend.onrender.com)
 
+[![⚙️ BACKEND API](https://img.shields.io/badge/⚙️%20BACKEND%20API-00D8FF?style=for-the-badge&labelColor=07111F)](https://nexusbank-backend-930z.onrender.com/api/health)
 
+[![🤖 ML SERVICE](https://img.shields.io/badge/🤖%20ML%20SERVICE-8B5CF6?style=for-the-badge&labelColor=07111F)](https://nexusbank-mern-ai-mlfraud-detection.onrender.com/health)
 
-
-
-
+[![📚 SWAGGER API DOCS](https://img.shields.io/badge/📚%20SWAGGER%20API%20DOCS-FF6B6B?style=for-the-badge&labelColor=07111F)](https://nexusbank-mern-ai-mlfraud-detection.onrender.com/docs)
 
 
 </div>
