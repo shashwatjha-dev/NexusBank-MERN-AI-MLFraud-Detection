@@ -20,12 +20,27 @@
 
 <a href="https://github.com/shashwatjha-dev/NexusBank-MERN-AI-MLFraud-Detection">
 
+<img src="https://img.shields.io/badge/⭐_VIEW_PROJECT-GitHub-111827?style=for-the-badge&logo=github" alt="GitHub"/>
 
 </a>
 
 </div>
 
 ---
+
+🔗 Live Links
+
+<div align="center">
+
+
+
+
+
+
+
+</div>
+
+
 
 <div align="center">
 
@@ -43,9 +58,11 @@ NexusBank is a full-stack digital banking portfolio project combining a modern b
 
 <div align="center">
 
+<img src="docs/screenshots/01-login.png" width="96%" alt="NexusBank Login"/>
 
 <br/><br/>
 
+<img src="docs/screenshots/02-dashboard.png" width="96%" alt="NexusBank Dashboard"/>
 
 </div>
 
@@ -110,40 +127,6 @@ The complete system is divided into three major services:
 | 🤖 ML Service | Python + FastAPI + scikit-learn | Fraud probability prediction |
 
 ---
-
-🌐 Live Deployment
-
-<div align="center">
-
-🚀 The NexusBank stack is deployed and running.
-
-Service
-
-Live Endpoint
-
-Purpose
-
-🎨 Frontend
-
-Open NexusBank
-
-Customer banking interface
-
-⚙️ Backend
-
-Backend Health
-
-Express API
-
-🤖 ML Service
-
-ML Health
-
-FastAPI fraud inference
-
-</div>
-
-Live architecture: React → Node/Express → MongoDB + FastAPI ML → scikit-learn
 
 # 🌌 System Overview
 
@@ -291,6 +274,7 @@ Instead, the application can expose the individual signals contributing to the s
 
 <div align="center">
 
+<img src="docs/screenshots/06-fraud-intelligence.png" width="96%" alt="NexusBank Fraud Intelligence"/>
 
 </div>
 
@@ -326,6 +310,7 @@ Every transfer can pass through NexusBank's fraud analysis workflow before the t
 
 <div align="center">
 
+<img src="docs/screenshots/04-transfer-fraud-analysis.png" width="96%" alt="NexusBank Transfer Fraud Analysis"/>
 
 </div>
 
@@ -361,6 +346,7 @@ NexusBank includes a dedicated fraud monitoring experience.
 
 <div align="center">
 
+<img src="docs/screenshots/05-fraud-events.png" width="96%" alt="NexusBank Fraud Events"/>
 
 </div>
 
@@ -646,6 +632,7 @@ This provides a safer failure mode than inventing a prediction.
 
 <div align="center">
 
+<img src="docs/screenshots/02-dashboard.png" width="96%" alt="NexusBank Dashboard"/>
 
 </div>
 
@@ -675,6 +662,7 @@ The dashboard provides an overview of:
 
 <div align="center">
 
+<img src="docs/screenshots/03-accounts.png" width="96%" alt="NexusBank Accounts"/>
 
 </div>
 
@@ -704,6 +692,7 @@ The Accounts experience includes:
 
 <div align="center">
 
+<img src="docs/screenshots/07-fixed-deposits.png" width="96%" alt="NexusBank Fixed Deposits"/>
 
 </div>
 
@@ -735,6 +724,7 @@ The Fixed Deposit experience provides:
 
 <div align="center">
 
+<img src="docs/screenshots/08-ppf.png" width="96%" alt="NexusBank PPF"/>
 
 </div>
 
@@ -762,6 +752,7 @@ The PPF experience demonstrates:
 
 <div align="center">
 
+<img src="docs/screenshots/09-rewards.png" width="96%" alt="NexusBank Rewards"/>
 
 </div>
 
@@ -787,6 +778,7 @@ The Rewards experience includes:
 
 <div align="center">
 
+<img src="docs/screenshots/01-login.png" width="96%" alt="NexusBank Login"/>
 
 </div>
 
@@ -1288,6 +1280,7 @@ The visual system makes security information understandable at a glance.
 
 <div align="center">
 
+<img src="https://skillicons.dev/icons?i=react,vite,nodejs,express,mongodb,python,fastapi,sklearn,javascript,git,github" width="700" alt="Technology Stack"/>
 
 </div>
 
@@ -1317,7 +1310,7 @@ The visual system makes security information understandable at a glance.
 
 | Model Persistence | joblib |
 
-| Email | Resend API |
+| Email | Nodemailer |
 
 | PDF Generation | PDFKit |
 
@@ -1367,7 +1360,7 @@ Configure the required environment variables including:
 
 - ML service URL
 
-- Resend email configuration
+- SMTP configuration
 
 - OTP configuration
 
@@ -1667,6 +1660,62 @@ NexusBank-MERN-AI-MLFraud-Detection/
 
 ---
 
+# 📸 Full Product Showcase
+
+## 🔐 Login
+
+<img src="docs/screenshots/01-login.png" width="100%" alt="NexusBank Login"/>
+
+---
+
+## 📊 Dashboard
+
+<img src="docs/screenshots/02-dashboard.png" width="100%" alt="NexusBank Dashboard"/>
+
+---
+
+## 💳 My Accounts
+
+<img src="docs/screenshots/03-accounts.png" width="100%" alt="NexusBank Accounts"/>
+
+---
+
+## 💸 Transfer + Fraud Analysis
+
+<img src="docs/screenshots/04-transfer-fraud-analysis.png" width="100%" alt="NexusBank Transfer Fraud Analysis"/>
+
+---
+
+## 🚨 Fraud Events
+
+<img src="docs/screenshots/05-fraud-events.png" width="100%" alt="NexusBank Fraud Events"/>
+
+---
+
+## 🧠 Fraud Intelligence
+
+<img src="docs/screenshots/06-fraud-intelligence.png" width="100%" alt="NexusBank Fraud Intelligence"/>
+
+---
+
+## 💰 Fixed Deposits
+
+<img src="docs/screenshots/07-fixed-deposits.png" width="100%" alt="NexusBank Fixed Deposits"/>
+
+---
+
+## 🐷 PPF
+
+<img src="docs/screenshots/08-ppf.png" width="100%" alt="NexusBank PPF"/>
+
+---
+
+## 🎁 Rewards
+
+<img src="docs/screenshots/09-rewards.png" width="100%" alt="NexusBank Rewards"/>
+
+---
+
 # 🎯 What This Project Demonstrates
 
 ```text
@@ -1949,12 +1998,6 @@ A real production financial platform would require substantially stronger contro
 
 ---
 
-<div align="center">
-
-
-
-</div>
-
 # 👨‍💻 Author
 
 <div align="center">
@@ -1971,13 +2014,15 @@ Building modern applications across:
 
 <a href="https://github.com/shashwatjha-dev">
 
+<img src="https://img.shields.io/badge/GitHub-shashwatjha--dev-111827?style=for-the-badge&logo=github" alt="GitHub"/>
 
 </a>
 
 <br/><br/>
 
-<a href="https://www\.linkedin.com/in/shashwatjha2026/">
+<a href="https://www.linkedin.com/in/shashwatjha2026/">
 
+<img src="https://img.shields.io/badge/LinkedIn-Shashwat%20Jha-0A66C2?style=for-the-badge&logo=linkedin" alt="LinkedIn"/>
 
 </a>
 
@@ -1993,11 +2038,13 @@ Building modern applications across:
 
 <br/>
 
+<img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=700&size=18&duration=2500&pause=800&color=00E5C3&center=true&vCenter=true&width=700&lines=RULES+%2B+BEHAVIOUR+%2B+MACHINE+LEARNING;EXPLAINABLE+FRAUD+INTELLIGENCE;SECURE+DIGITAL+BANKING;BUILT+WITH+MERN+%2B+FASTAPI" alt="NexusBank"/>
 
 <br/><br/>
 
 <a href="https://github.com/shashwatjha-dev/NexusBank-MERN-AI-MLFraud-Detection">
 
+<img src="https://img.shields.io/badge/⭐_EXPLORE_NEXUSBANK-GitHub-00E5C3?style=for-the-badge&labelColor=07111F" alt="Explore NexusBank"/>
 
 </a>
 
