@@ -1,4 +1,4 @@
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
 /*
  * =========================================================
@@ -12,45 +12,52 @@ const isProduction = () =>
 
 /*
  * =========================================================
- * RESEND
+ * GMAIL SMTP CONFIGURATION
  * =========================================================
  */
 
-const resendConfigured = () =>
-  Boolean(process.env.RESEND_API_KEY);
+const smtpConfigured = () =>
+  Boolean(
+    process.env.SMTP_HOST &&
+      process.env.SMTP_PORT &&
+      process.env.SMTP_USER &&
+      process.env.SMTP_PASS
+  );
 
-let resendClient = null;
+let transporter = null;
 
-function getResendClient() {
-  if (!resendConfigured()) {
+function getTransporter() {
+  if (!smtpConfigured()) {
     return null;
   }
 
-  if (!resendClient) {
-    resendClient = new Resend(
-      process.env.RESEND_API_KEY
-    );
+  if (!transporter) {
+    transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT || 587),
+      secure:
+        String(process.env.SMTP_SECURE || "false").toLowerCase() ===
+        "true",
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    });
   }
 
-  return resendClient;
+  return transporter;
 }
 
 /*
  * =========================================================
  * FROM ADDRESS
  * =========================================================
- *
- * Resend requires a sender address that is allowed by the
- * account/domain configuration.
- *
- * RESEND_FROM can be configured in Render.
  */
 
 function fromAddress() {
   return (
-    process.env.RESEND_FROM ||
     process.env.MAIL_FROM ||
-    "NexusBank <onboarding@resend.dev>"
+    `NexusBank <${process.env.SMTP_USER}>`
   );
 }
 
@@ -87,18 +94,6 @@ function maskedEmail(email) {
  * =========================================================
  * GENERIC EMAIL SENDER
  * =========================================================
- *
- * Every NexusBank email eventually comes through here.
- *
- * Resend configured:
- *   - Sends through Resend API.
- *
- * Resend not configured:
- *   - Returns a controlled failure.
- *
- * Resend failure:
- *   - Logs the exact reason.
- *   - Returns a controlled failure.
  */
 
 async function sendEmail({
@@ -124,150 +119,155 @@ async function sendEmail({
     };
   }
 
-  const resend = getResendClient();
+  const mailer = getTransporter();
 
   /*
-   * =======================================================
-   * RESEND NOT CONFIGURED
-   * =======================================================
+   * -------------------------------------------------------
+   * SMTP NOT CONFIGURED
+   * -------------------------------------------------------
    */
 
-  if (!resend) {
+  if (!mailer) {
     console.warn(
       JSON.stringify({
         event: "EMAIL_NOT_SENT",
+
         type: event,
-        to: maskedEmail(to),
+
+        recipient: maskedEmail(to),
+
         subject,
-        reason: "RESEND_NOT_CONFIGURED",
+
+        reason: "SMTP_NOT_CONFIGURED",
+
         hint:
-          "Configure RESEND_API_KEY in the Backend environment.",
+          "Configure SMTP_HOST, SMTP_PORT, SMTP_USER and SMTP_PASS in the Backend environment.",
       })
     );
 
     return {
       sent: false,
       mode: "not-configured",
-      error: "RESEND_NOT_CONFIGURED",
+      error: "SMTP_NOT_CONFIGURED",
     };
   }
 
   /*
-   * =======================================================
-   * SEND THROUGH RESEND
-   * =======================================================
+   * -------------------------------------------------------
+   * EMAIL PAYLOAD
+   * -------------------------------------------------------
    */
 
   try {
-    const emailPayload = {
+    const mailOptions = {
       from: fromAddress(),
-      to: [to],
+
+      to,
+
       subject,
+
       text,
+
       html,
     };
 
     /*
-     * Resend attachments expect:
-     *
-     * {
-     *   filename,
-     *   content
-     * }
-     *
-     * The existing NexusBank statement PDF buffer is passed
-     * directly as attachment content.
+     * -----------------------------------------------------
+     * ATTACHMENTS
+     * -----------------------------------------------------
      */
 
     if (
       Array.isArray(attachments) &&
       attachments.length > 0
     ) {
-      emailPayload.attachments =
-        attachments.map((attachment) => ({
+      mailOptions.attachments = attachments.map(
+        (attachment) => ({
           filename:
             attachment.filename ||
             "attachment",
+
           content:
             attachment.content,
-        }));
+
+          ...(attachment.contentType
+            ? {
+                contentType:
+                  attachment.contentType,
+              }
+            : {}),
+        })
+      );
     }
 
+    /*
+     * -----------------------------------------------------
+     * SEND THROUGH GMAIL SMTP
+     * -----------------------------------------------------
+     */
+
     const result =
-      await resend.emails.send(
-        emailPayload
+      await mailer.sendMail(
+        mailOptions
       );
 
     /*
-     * Resend returns an error object when the API rejects
-     * the request.
+     * -----------------------------------------------------
+     * SUCCESS
+     * -----------------------------------------------------
      */
-
-    if (result?.error) {
-      const resendError =
-        result.error;
-
-      console.error(
-        JSON.stringify({
-          event:
-            "EMAIL_SEND_FAILED",
-          type: event,
-          to: maskedEmail(to),
-          subject,
-          error:
-            resendError.message ||
-            "Resend email delivery failed.",
-          code:
-            resendError.name ||
-            null,
-        })
-      );
-
-      if (isProduction()) {
-        console.error(
-          "Production Resend delivery failed. Check RESEND_API_KEY and RESEND_FROM."
-        );
-      }
-
-      return {
-        sent: false,
-        mode: "resend",
-        error:
-          resendError.message ||
-          "Resend email delivery failed.",
-      };
-    }
-
-    const messageId =
-      result?.data?.id || null;
 
     console.info(
       JSON.stringify({
         event: "EMAIL_SENT",
+
         type: event,
-        to: maskedEmail(to),
+
+        recipient:
+          maskedEmail(to),
+
         subject,
-        messageId,
-        provider: "resend",
+
+        messageId:
+          result?.messageId ||
+          null,
+
+        provider:
+          "gmail-smtp",
       })
     );
 
     return {
       sent: true,
-      mode: "resend",
-      messageId,
+
+      mode: "gmail-smtp",
+
+      messageId:
+        result?.messageId ||
+        null,
     };
   } catch (error) {
+    /*
+     * -----------------------------------------------------
+     * SMTP ERROR
+     * -----------------------------------------------------
+     */
+
     console.error(
       JSON.stringify({
-        event:
-          "EMAIL_SEND_FAILED",
+        event: "EMAIL_SEND_FAILED",
+
         type: event,
-        to: maskedEmail(to),
+
+        recipient:
+          maskedEmail(to),
+
         subject,
+
         error:
           error?.message ||
-          "Unknown Resend error.",
+          "Unknown SMTP error.",
+
         code:
           error?.code ||
           error?.name ||
@@ -275,15 +275,11 @@ async function sendEmail({
       })
     );
 
-    if (isProduction()) {
-      console.error(
-        "Production Resend delivery failed. Check RESEND_API_KEY and RESEND_FROM."
-      );
-    }
-
     return {
       sent: false,
-      mode: "resend",
+
+      mode: "gmail-smtp",
+
       error:
         error?.message ||
         "Email delivery failed.",
@@ -311,8 +307,7 @@ export async function sendLoginOtpEmail({
 
   const minutes =
     Math.ceil(
-      Number(expiresInSeconds) /
-        60
+      Number(expiresInSeconds) / 60
     );
 
   const subject =
@@ -336,15 +331,35 @@ export async function sendLoginOtpEmail({
   const html = `
 <!doctype html>
 <html>
-  <body style="margin:0;background:#f5f7fb;font-family:Arial,sans-serif;color:#172033;">
+  <body style="
+    margin:0;
+    background:#f5f7fb;
+    font-family:Arial,sans-serif;
+    color:#172033;
+  ">
 
-    <div style="max-width:600px;margin:40px auto;background:#ffffff;border-radius:16px;padding:32px;border:1px solid #e5e7eb;">
+    <div style="
+      max-width:600px;
+      margin:40px auto;
+      background:#ffffff;
+      border-radius:16px;
+      padding:32px;
+      border:1px solid #e5e7eb;
+    ">
 
-      <div style="font-size:24px;font-weight:700;margin-bottom:8px;">
+      <div style="
+        font-size:24px;
+        font-weight:700;
+        margin-bottom:8px;
+      ">
         NexusBank
       </div>
 
-      <div style="color:#64748b;font-size:14px;margin-bottom:28px;">
+      <div style="
+        color:#64748b;
+        font-size:14px;
+        margin-bottom:28px;
+      ">
         Smart banking. Intelligent security.
       </div>
 
@@ -357,7 +372,8 @@ export async function sendLoginOtpEmail({
       </p>
 
       <p>
-        Use the verification code below to complete your NexusBank sign-in:
+        Use the verification code below to complete
+        your NexusBank sign-in:
       </p>
 
       <div style="
@@ -377,13 +393,25 @@ export async function sendLoginOtpEmail({
         This code expires in ${minutes} minutes.
       </p>
 
-      <p style="color:#64748b;font-size:13px;">
-        If you did not attempt to sign in, you can safely ignore this email.
+      <p style="
+        color:#64748b;
+        font-size:13px;
+      ">
+        If you did not attempt to sign in,
+        you can safely ignore this email.
       </p>
 
-      <hr style="border:0;border-top:1px solid #e5e7eb;margin:28px 0;">
+      <hr style="
+        border:0;
+        border-top:1px solid #e5e7eb;
+        margin:28px 0;
+      ">
 
-      <p style="color:#94a3b8;font-size:12px;margin:0;">
+      <p style="
+        color:#94a3b8;
+        font-size:12px;
+        margin:0;
+      ">
         NexusBank portfolio demonstration
       </p>
 
@@ -422,8 +450,7 @@ export async function sendPasswordResetOtpEmail({
 
   const minutes =
     Math.ceil(
-      Number(expiresInSeconds) /
-        60
+      Number(expiresInSeconds) / 60
     );
 
   const subject =
@@ -451,7 +478,12 @@ export async function sendPasswordResetOtpEmail({
   const html = `
 <!doctype html>
 <html>
-  <body style="margin:0;background:#f5f7fb;font-family:Arial,sans-serif;color:#172033;">
+  <body style="
+    margin:0;
+    background:#f5f7fb;
+    font-family:Arial,sans-serif;
+    color:#172033;
+  ">
 
     <div style="
       max-width:600px;
@@ -478,9 +510,7 @@ export async function sendPasswordResetOtpEmail({
         Smart banking. Intelligent security.
       </div>
 
-      <h2 style="
-        margin:0 0 12px;
-      ">
+      <h2 style="margin:0 0 12px;">
         Password reset verification
       </h2>
 
@@ -506,9 +536,7 @@ export async function sendPasswordResetOtpEmail({
         ${safeOtp}
       </div>
 
-      <p style="
-        color:#64748b;
-      ">
+      <p style="color:#64748b;">
         This code expires in ${minutes} minutes.
       </p>
 
@@ -588,8 +616,7 @@ export async function sendTransferOtpEmail({
       Number(amountPaise)
     )
       ? (
-          Number(amountPaise) /
-          100
+          Number(amountPaise) / 100
         ).toLocaleString(
           "en-IN",
           {
@@ -601,8 +628,7 @@ export async function sendTransferOtpEmail({
 
   const minutes =
     Math.ceil(
-      Number(expiresInSeconds) /
-        60
+      Number(expiresInSeconds) / 60
     );
 
   const subject =
@@ -787,8 +813,7 @@ export async function sendStatementShareEmail({
   summary,
 }) {
   const period =
-    dateRange?.from &&
-    dateRange?.to
+    dateRange?.from && dateRange?.to
       ? `${dateRange.from} to ${dateRange.to}`
       : dateRange?.from
       ? `from ${dateRange.from}`
@@ -863,60 +888,37 @@ export async function sendStatementShareEmail({
         ">
 
           <tr>
-            <td style="
-              padding:8px 0;
-              color:#5B6472;
-            ">
+            <td style="padding:8px 0;color:#5B6472;">
               Account
             </td>
 
-            <td style="
-              padding:8px 0;
-              text-align:right;
-            ">
+            <td style="padding:8px 0;text-align:right;">
               <strong>${safeAccountLabel}</strong>
             </td>
           </tr>
 
           <tr>
-            <td style="
-              padding:8px 0;
-              color:#5B6472;
-            ">
+            <td style="padding:8px 0;color:#5B6472;">
               Period
             </td>
 
-            <td style="
-              padding:8px 0;
-              text-align:right;
-            ">
+            <td style="padding:8px 0;text-align:right;">
               <strong>${escapeHtml(period)}</strong>
             </td>
           </tr>
 
           <tr>
-            <td style="
-              padding:8px 0;
-              color:#5B6472;
-            ">
+            <td style="padding:8px 0;color:#5B6472;">
               Entries
             </td>
 
-            <td style="
-              padding:8px 0;
-              text-align:right;
-            ">
-              <strong>${escapeHtml(
-                summary?.count ?? 0
-              )}</strong>
+            <td style="padding:8px 0;text-align:right;">
+              <strong>${escapeHtml(summary?.count ?? 0)}</strong>
             </td>
           </tr>
 
           <tr>
-            <td style="
-              padding:8px 0;
-              color:#5B6472;
-            ">
+            <td style="padding:8px 0;color:#5B6472;">
               Total Credits
             </td>
 
@@ -925,20 +927,12 @@ export async function sendStatementShareEmail({
               text-align:right;
               color:#0E9F6E;
             ">
-              <strong>
-                ${escapeHtml(
-                  summary?.credit ??
-                    "₹0"
-                )}
-              </strong>
+              <strong>${escapeHtml(summary?.credit ?? "₹0")}</strong>
             </td>
           </tr>
 
           <tr>
-            <td style="
-              padding:8px 0;
-              color:#5B6472;
-            ">
+            <td style="padding:8px 0;color:#5B6472;">
               Total Debits
             </td>
 
@@ -947,12 +941,7 @@ export async function sendStatementShareEmail({
               text-align:right;
               color:#DC2626;
             ">
-              <strong>
-                ${escapeHtml(
-                  summary?.debit ??
-                    "₹0"
-                )}
-              </strong>
+              <strong>${escapeHtml(summary?.debit ?? "₹0")}</strong>
             </td>
           </tr>
 
@@ -996,15 +985,9 @@ export async function sendStatementShareEmail({
     `NexusBank Statement shared by ${senderName}\n\n` +
     `Account: ${accountLabel}\n` +
     `Period: ${period}\n` +
-    `Entries: ${
-      summary?.count ?? 0
-    }\n` +
-    `Credits: ${
-      summary?.credit ?? "₹0"
-    }\n` +
-    `Debits: ${
-      summary?.debit ?? "₹0"
-    }\n\n` +
+    `Entries: ${summary?.count ?? 0}\n` +
+    `Credits: ${summary?.credit ?? "₹0"}\n` +
+    `Debits: ${summary?.debit ?? "₹0"}\n\n` +
     (message
       ? `Message from sender:\n${message}\n\n`
       : "") +
@@ -1018,11 +1001,9 @@ export async function sendStatementShareEmail({
     event: "STATEMENT_SHARE",
     attachments: [
       {
-        filename:
-          "nexusbank-statement.pdf",
+        filename: "nexusbank-statement.pdf",
         content: pdfBuffer,
-        contentType:
-          "application/pdf",
+        contentType: "application/pdf",
       },
     ],
   });
