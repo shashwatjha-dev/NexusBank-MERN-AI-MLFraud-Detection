@@ -38,9 +38,9 @@
 
 
 
+
+
 </div>
-
-
 
 <div align="center">
 
@@ -1422,7 +1422,7 @@ Start the ML API:
 
 Swagger documentation:
 
-    http://localhost:8000/docs
+    https://nexusbank-mern-ai-mlfraud-detection.onrender.com/docs
 
 ---
 
