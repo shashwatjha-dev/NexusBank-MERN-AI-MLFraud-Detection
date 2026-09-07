@@ -35,7 +35,7 @@ function getTransporter() {
     transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT || 587),
-
+family: 4,
       secure:
         String(process.env.SMTP_SECURE || "").toLowerCase() === "true" ||
         Number(process.env.SMTP_PORT) === 465,
