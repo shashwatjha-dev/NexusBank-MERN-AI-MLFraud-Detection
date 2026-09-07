@@ -111,6 +111,40 @@ The complete system is divided into three major services:
 
 ---
 
+🌐 Live Deployment
+
+<div align="center">
+
+🚀 The NexusBank stack is deployed and running.
+
+Service
+
+Live Endpoint
+
+Purpose
+
+🎨 Frontend
+
+Open NexusBank
+
+Customer banking interface
+
+⚙️ Backend
+
+Backend Health
+
+Express API
+
+🤖 ML Service
+
+ML Health
+
+FastAPI fraud inference
+
+</div>
+
+Live architecture: React → Node/Express → MongoDB + FastAPI ML → scikit-learn
+
 # 🌌 System Overview
 
 ```text
@@ -1283,7 +1317,7 @@ The visual system makes security information understandable at a glance.
 
 | Model Persistence | joblib |
 
-| Email | Nodemailer |
+| Email | Resend API |
 
 | PDF Generation | PDFKit |
 
@@ -1333,7 +1367,7 @@ Configure the required environment variables including:
 
 - ML service URL
 
-- SMTP configuration
+- Resend email configuration
 
 - OTP configuration
 
@@ -1633,53 +1667,6 @@ NexusBank-MERN-AI-MLFraud-Detection/
 
 ---
 
-# 📸 Full Product Showcase
-
-## 🔐 Login
-
-
----
-
-## 📊 Dashboard
-
-
----
-
-## 💳 My Accounts
-
-
----
-
-## 💸 Transfer + Fraud Analysis
-
-
----
-
-## 🚨 Fraud Events
-
-
----
-
-## 🧠 Fraud Intelligence
-
-
----
-
-## 💰 Fixed Deposits
-
-
----
-
-## 🐷 PPF
-
-
----
-
-## 🎁 Rewards
-
-
----
-
 # 🎯 What This Project Demonstrates
 
 ```text
@@ -1962,6 +1949,12 @@ A real production financial platform would require substantially stronger contro
 
 ---
 
+<div align="center">
+
+
+
+</div>
+
 # 👨‍💻 Author
 
 <div align="center">
@@ -1983,7 +1976,7 @@ Building modern applications across:
 
 <br/><br/>
 
-<a href="https://www.linkedin.com/in/shashwatjha2026/">
+<a href="https://www\.linkedin.com/in/shashwatjha2026/">
 
 
 </a>
